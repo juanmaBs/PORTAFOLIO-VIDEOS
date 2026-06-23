@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = ''; 
 
             data.forEach(p => {
-                
                 grid.innerHTML += `
                     <div class="video-card">
                         <video muted loop 
@@ -19,12 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             });
+
+            // --- MUEVE EL OBSERVADOR AQUÍ ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            });
+            document.querySelectorAll('.video-card').forEach(card => observer.observe(card));
         })
         .catch(err => console.log("Error al cargar JSON:", err));
 });
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-});
-document.querySelectorAll('.video-card').forEach(card => observer.observe(card));

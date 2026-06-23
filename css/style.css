@@ -442,3 +442,31 @@ video {
 video::-webkit-media-controls-panel {
     background-color: rgba(0, 0, 0, 0.7);
 }
+/* ===== PANTALLA COMPLETA PROFESIONAL PARA 9:16 ===== */
+
+/* Estilos para el video cuando está en pantalla completa nativa */
+video:fullscreen {
+  /* Forzamos a que el video NO se estire */
+  object-fit: contain !important; 
+  /* Aseguramos que la proporción sea 9:16 */
+  aspect-ratio: 9/16 !important;
+  /* Centramos el video en la pantalla */
+  width: auto !important;
+  height: 100% !important;
+  margin: auto !important;
+  /* Fondo negro para el espacio restante */
+  background-color: black !important;
+}
+
+/* Soporte para navegadores basados en Webkit (Chrome, Safari, Edge) */
+video::-webkit-media-controls-enclosure {
+  /* Asegura que los controles sigan la forma del video, no de la pantalla entera */
+  max-width: calc(100vh * (9 / 16)) !important;
+  margin: 0 auto;
+}
+
+/* Opcional: Centrar el video también horizontalmente si la pantalla es muy ancha */
+video::-webkit-media-controls-panel {
+    display: flex;
+    justify-content: center;
+}

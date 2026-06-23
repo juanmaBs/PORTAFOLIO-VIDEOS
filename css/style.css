@@ -433,3 +433,12 @@ footer{
     opacity: 1;
     transform: translateY(0);
 }
+video {
+    cursor: pointer;
+    background: #000;
+}
+
+/* Esto asegura que los controles se vean bien sobre tu diseño */
+video::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.7);
+}

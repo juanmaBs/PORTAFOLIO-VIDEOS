@@ -6,17 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = ''; 
 
             data.forEach(p => {
+                
                 grid.innerHTML += `
                     <div class="video-card">
-                        <video muted loop 
-                               onmouseover="this.play()" 
-                               onmouseout="this.pause()"
+                        <video controls playsinline
                                style="width: 100%; aspect-ratio: 9/16; object-fit: cover;">
                             <source src="${p.url}" type="video/mp4">
+                            Tu navegador no soporta videos.
                         </video>
                         <h3>${p.titulo}</h3>
                     </div>
-                `;
+                 `;
             });
 
             // --- MUEVE EL OBSERVADOR AQUÍ ---

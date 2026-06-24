@@ -504,11 +504,6 @@ video:fullscreen {
     cursor: pointer;
     background: #000;
     
-    /* CAPA OSCURA INICIAL */
-    filter: brightness(0.6); 
-    transition: filter 0.4s ease;
-}
-
 /* Cuando el video está en reproducción o tiene el mouse encima */
 .video-card video:hover, 
 .video-card video:focus,
@@ -516,30 +511,7 @@ video:fullscreen {
     filter: brightness(1); /* Vuelve al brillo original (claro) */
 }
 
-/* Si quieres que se aclare cuando el usuario hace clic para ver (fullscreen) */
-.video-card video:fullscreen {
-    filter: brightness(1) !important;
-}
 
-.video-card video:hover {
-    filter: brightness(1.2) contrast(1.1); /* Se ilumina un poco más al pasar el mouse */
-}
-.video-card {
-    /* ... tus otros estilos ... */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Haz el borde un poco más visible */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-.video-card video {
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    object-fit: cover;
-    display: block;
-    cursor: pointer;
-    background: #000;
-    /* Aumentamos un poco la exposición y el contraste */
-    filter: brightness(1.15) contrast(1.1);
-    transition: filter 0.3s ease;
-}
 
 /* Opcional: que se aclare aún más al pasar el mouse */
 .video-card:hover video {

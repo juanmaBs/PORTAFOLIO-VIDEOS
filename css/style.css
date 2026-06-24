@@ -287,24 +287,21 @@ body::after{
     color:#b6b6b6;
 }
 
+/* ===== RESET Y BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: #050505; color: white; overflow-x: hidden; position: relative; }
+
 /* ===== PROYECTOS (CARRUSEL) ===== */
-#proyectos {
-    padding: 80px 7%;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-}
+#proyectos { padding: 80px 7%; max-width: 1200px; margin: 0 auto; position: relative; }
 
-#video-grid-wrapper {
-    overflow: hidden;
-    width: 100%;
-}
+#video-grid-wrapper { overflow: hidden; width: 100%; }
 
-#video-grid {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.5s ease-in-out;
-    padding-bottom: 20px;
+#video-grid { 
+    display: flex; 
+    gap: 20px; 
+    transition: transform 0.5s ease-in-out; 
+    padding-bottom: 20px; 
 }
 
 .video-card {
@@ -314,17 +311,21 @@ body::after{
     backdrop-filter: blur(20px);
     border-radius: 20px;
     overflow: hidden;
-    transition: 0.5s;
-    /* CORRECCIÓN: Evita que el blur se superponga al video */
-    isolation: isolate; 
+    transition: all 0.6s ease-out;
+    opacity: 0;
+    transform: translateY(30px);
+    isolation: isolate; /* Esto quita la capa de oscuridad del blur */
 }
 
+.video-card.visible { opacity: 1; transform: translateY(0); }
+
 .video-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px) scale(1.02);
     border-color: #8b5cf6;
     box-shadow: 0 0 25px rgba(139, 92, 246, 0.2);
 }
 
+/* --- ESTILO CRÍTICO DEL VIDEO --- */
 .video-card video {
     width: 100%;
     aspect-ratio: 9 / 16;
@@ -332,36 +333,10 @@ body::after{
     display: block;
     cursor: pointer;
     background: #000;
-    /* CORRECCIÓN: Sin filtros extraños, brillo natural */
-    filter: none;
-    transition: filter 0.3s ease;
+    filter: none !important; /* Fuerza a ignorar filtros oscuros */
 }
 
-.video-card:hover video {
-    filter: brightness(1.05); /* Ligero realce al pasar el mouse */
-}
-
-/* Botones de Navegación */
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(139, 92, 246, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    transition: 0.3s;
-}
-
-.nav-btn:hover { background: #8b5cf6; }
-.prev { left: 0; }
-.next { right: 0; }
-
-/* --- AJUSTE PARA PANTALLA COMPLETA --- */
+/* Control del formato en pantalla completa */
 .video-card video:fullscreen {
     object-fit: contain !important;
     background: #000 !important;
@@ -375,6 +350,8 @@ body::after{
     color: white;
 }
 
+/* ===== RESTO DE TU CSS (Navbar, Hero, etc.) ===== */
+/* (Aquí mantén tus estilos originales del Navbar, Banner, Hero, Stats, etc.) */
 /* ===== CTA ===== */
 
 .cta-section{

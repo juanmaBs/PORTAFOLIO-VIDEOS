@@ -292,29 +292,31 @@ body::after{
     padding: 80px 7%;
     max-width: 1200px;
     margin: 0 auto;
-    position: relative; /* Necesario para posicionar las flechas */
+    position: relative;
 }
 
 #video-grid-wrapper {
-    overflow: hidden; /* Oculta lo que se sale del carrusel */
+    overflow: hidden;
     width: 100%;
 }
 
 #video-grid {
-    display: flex; /* Alinea los videos en fila */
+    display: flex;
     gap: 20px;
     transition: transform 0.5s ease-in-out;
-    padding-bottom: 20px; /* Espacio para la sombra al hacer hover */
+    padding-bottom: 20px;
 }
 
 .video-card {
-    flex: 0 0 220px; /* Tamaño fijo para que siempre se vea igual */
+    flex: 0 0 220px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
     border-radius: 20px;
     overflow: hidden;
     transition: 0.5s;
+    /* CORRECCIÓN: Evita que el blur se superponga al video */
+    isolation: isolate; 
 }
 
 .video-card:hover {
@@ -330,6 +332,13 @@ body::after{
     display: block;
     cursor: pointer;
     background: #000;
+    /* CORRECCIÓN: Sin filtros extraños, brillo natural */
+    filter: none;
+    transition: filter 0.3s ease;
+}
+
+.video-card:hover video {
+    filter: brightness(1.05); /* Ligero realce al pasar el mouse */
 }
 
 /* Botones de Navegación */
@@ -351,17 +360,18 @@ body::after{
 .nav-btn:hover { background: #8b5cf6; }
 .prev { left: 0; }
 .next { right: 0; }
-/* --- AJUSTE PARA MANTENER FORMATO EN PANTALLA COMPLETA --- */
+
+/* --- AJUSTE PARA PANTALLA COMPLETA --- */
 .video-card video:fullscreen {
-    object-fit: contain; /* Evita que el video se estire en pantalla completa */
-    background: #000;
+    object-fit: contain !important;
+    background: #000 !important;
 }
 
 .video-card h3 {
-    padding: 15px; /* Menos padding para que el texto sea más compacto */
+    padding: 15px;
     text-align: center;
     font-weight: 500;
-    font-size: 0.9rem; /* Un poco más pequeño para no robar protagonismo */
+    font-size: 0.9rem;
     color: white;
 }
 

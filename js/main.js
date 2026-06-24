@@ -29,3 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(err => console.log("Error al cargar JSON:", err));
 });
+let currentOffset = 0;
+
+function moveSlide(direction) {
+    const grid = document.getElementById('video-grid');
+    const cardWidth = 240; 
+    const visibleCards = Math.floor(window.innerWidth / cardWidth);
+    
+    // Calcula el desplazamiento
+    currentOffset -= (direction * cardWidth);
+    
+    // Límites para no pasarse
+    const maxOffset = -(grid.scrollWidth - (visibleCards * cardWidth));
+    
+    if (currentOffset > 0) currentOffset = 0;
+    if (currentOffset < maxOffset && maxOffset < 0) currentOffset = maxOffset;
+    
+    grid.style.transform = `translateX(${currentOffset}px)`;
+}

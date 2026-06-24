@@ -287,32 +287,38 @@ body::after{
     color:#b6b6b6;
 }
 
-/* ===== PROYECTOS ===== */
-
+/* ===== PROYECTOS (CARRUSEL) ===== */
 #proyectos {
-    padding: 80px 7%; /* Reduje el padding superior para que sea más corto */
-    max-width: 1200px; /* Ajustado para mayor control de alineación */
+    padding: 80px 7%;
+    max-width: 1200px;
     margin: 0 auto;
+    position: relative; /* Necesario para posicionar las flechas */
+}
+
+#video-grid-wrapper {
+    overflow: hidden; /* Oculta lo que se sale del carrusel */
+    width: 100%;
 }
 
 #video-grid {
-    display: grid;
-    /* Ajustado a 220px para que las tarjetas sean más pequeñas y quepan más por fila */
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px; /* Menor espacio entre elementos para un look más limpio */
+    display: flex; /* Alinea los videos en fila */
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+    padding-bottom: 20px; /* Espacio para la sombra al hacer hover */
 }
 
 .video-card {
+    flex: 0 0 220px; /* Tamaño fijo para que siempre se vea igual */
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
-    border-radius: 20px; /* Bordes ligeramente más ajustados */
+    border-radius: 20px;
     overflow: hidden;
     transition: 0.5s;
 }
 
 .video-card:hover {
-    transform: translateY(-8px); /* Menos movimiento al pasar el mouse para mayor fluidez */
+    transform: translateY(-8px);
     border-color: #8b5cf6;
     box-shadow: 0 0 25px rgba(139, 92, 246, 0.2);
 }
@@ -320,12 +326,31 @@ body::after{
 .video-card video {
     width: 100%;
     aspect-ratio: 9 / 16;
-    object-fit: cover; /* Mantiene el formato vertical 9:16 perfectamente */
+    object-fit: cover;
     display: block;
     cursor: pointer;
     background: #000;
 }
 
+/* Botones de Navegación */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.nav-btn:hover { background: #8b5cf6; }
+.prev { left: 0; }
+.next { right: 0; }
 /* --- AJUSTE PARA MANTENER FORMATO EN PANTALLA COMPLETA --- */
 .video-card video:fullscreen {
     object-fit: contain; /* Evita que el video se estire en pantalla completa */

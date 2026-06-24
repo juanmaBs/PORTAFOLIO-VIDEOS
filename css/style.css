@@ -505,3 +505,28 @@ video:fullscreen {
     border: 1px solid rgba(255, 255, 255, 0.15); /* Haz el borde un poco más visible */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
+.video-card video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    background: #000;
+    /* Aumentamos un poco la exposición y el contraste */
+    filter: brightness(1.15) contrast(1.1);
+    transition: filter 0.3s ease;
+}
+
+/* Opcional: que se aclare aún más al pasar el mouse */
+.video-card:hover video {
+    filter: brightness(1.3) contrast(1.15);
+}
+.video-card {
+    background: rgba(255, 255, 255, 0.05); /* Asegúrate de que no sea muy oscuro */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    overflow: hidden;
+    /* IMPORTANTE: Evita que cualquier capa hija se oscurezca */
+    isolation: isolate; 
+}

@@ -486,15 +486,29 @@ video:fullscreen {
     width: auto !important;
     height: 100% !important;
     margin: 0 auto !important;
-}
 .video-card video {
     width: 100%;
     aspect-ratio: 9 / 16;
     object-fit: cover;
+    display: block;
+    cursor: pointer;
     background: #000;
-    /* Ajusta estos valores para iluminar el video */
-    filter: brightness(1.1) contrast(1.05); 
-    transition: filter 0.3s ease;
+    
+    /* CAPA OSCURA INICIAL */
+    filter: brightness(0.6); 
+    transition: filter 0.4s ease;
+}
+
+/* Cuando el video está en reproducción o tiene el mouse encima */
+.video-card video:hover, 
+.video-card video:focus,
+.video-card video:active {
+    filter: brightness(1); /* Vuelve al brillo original (claro) */
+}
+
+/* Si quieres que se aclare cuando el usuario hace clic para ver (fullscreen) */
+.video-card video:fullscreen {
+    filter: brightness(1) !important;
 }
 
 .video-card video:hover {

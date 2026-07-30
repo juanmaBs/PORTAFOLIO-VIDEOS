@@ -503,3 +503,62 @@ video:fullscreen {
     background: #000;
     filter: none; /* Ahora sí, sin controles, no hay capa oscura */
 }
+/* Contenedor general del carrusel para posicionar las flechas */
+#video-grid-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px; /* Espacio a los lados para las flechas */
+    box-sizing: border-box;
+}
+
+/* El grid de los videos */
+#video-grid {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s ease-in-out;
+    width: max-content;
+}
+
+/* Estilo moderno y elegante para los botones de las flechas */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(40, 40, 40, 0.8); /* Fondo gris oscuro translúcido */
+    color: #e0e0e0; /* Color gris claro para la flecha */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; /* Botón circular perfecto */
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Posición de la flecha izquierda */
+.nav-btn.prev {
+    left: 5px;
+}
+
+/* Posición de la flecha derecha */
+.nav-btn.next {
+    right: 5px;
+}
+
+/* Efecto al pasar el mouse por encima de las flechas */
+.nav-btn:hover {
+    background-color: rgba(70, 70, 70, 0.95);
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}

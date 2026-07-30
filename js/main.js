@@ -1,53 +1,233 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('./database/projects.json')
-        .then(res => res.json())
-        .then(data => {
-            const grid = document.getElementById('video-grid');
-            grid.innerHTML = ''; 
+// ================================
+// CARGAR PROYECTOS
+// ================================
 
-            data.forEach(p => {
-                grid.innerHTML += `
-                    <div class="video-card">
-                        <video controls playsinline preload="none"
-                               style="width: 100%; aspect-ratio: 9/16; object-fit: cover;">
-                            <source src="${p.url}" type="video/mp4">
-                            Tu navegador no soporta videos.
-                        </video>
-                        <h3>${p.titulo}</h3>
-                    </div>
-                 `;
-            });
+const track = document.getElementById("video-grid");
 
-            // Observador para la animación de entrada
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            });
-            document.querySelectorAll('.video-card').forEach(card => observer.observe(card));
-        })
-        .catch(err => console.log("Error al cargar JSON:", err));
+let currentIndex = 0;
+let cards = [];
+let cardWidth = 0;
+
+fetch("./database/projects.json")
+    .then(res => res.json())
+    .then(data => {
+
+        data.forEach(project => {
+
+            const card = document.createElement("div");
+            card.className = "video-card";
+
+            card.innerHTML = `
+                <video controls playsinline preload="metadata">
+                    <source src="${project.url}" type="video/mp4">
+                </video>
+
+                <h3>${project.titulo}</h3>
+            `;
+
+            track.appendChild(card);
+
+        });
+
+        cards = document.querySelectorAll(".video-card");
+
+        observeCards();
+
+        updateCarousel();
+
+    });
+
+
+// ================================
+// ANIMACIÓN DE ENTRADA
+// ================================
+
+function observeCards(){
+
+    const observer = new IntersectionObserver(entries=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("visible");
+
+            }
+
+        });
+
+    },{
+
+        threshold:0.2
+
+    });
+
+    cards.forEach(card=>observer.observe(card));
+
+}
+
+
+// ================================
+// CARRUSEL
+// ================================
+
+function updateCarousel(){
+
+    if(cards.length===0) return;
+
+    cardWidth = cards[0].offsetWidth + 24;
+
+    track.style.transform =
+        `translateX(-${currentIndex*cardWidth}px)`;
+
+}
+
+
+
+// ================================
+// BOTONES
+// ================================
+
+const prevBtn = document.getElementById("prevBtn");
+
+const nextBtn = document.getElementById("nextBtn");
+
+prevBtn.addEventListener("click",()=>{
+
+    if(currentIndex>0){
+
+        currentIndex--;
+
+        updateCarousel();
+
+    }
+
 });
 
-let currentOffset = 0;
+nextBtn.addEventListener("click",()=>{
 
-function moveSlide(direction) {
-    const grid = document.getElementById('video-grid');
-    const cards = grid.querySelectorAll('.video-card');
-    if (cards.length === 0) return;
+    if(currentIndex<cards.length-1){
 
-    const cardWidth = cards[0].offsetWidth + 20; 
-    const wrapperWidth = grid.parentElement.offsetWidth;
-    
-    // Mueve de a 2 tarjetas por clic para mayor fluidez
-    currentOffset -= (direction * (cardWidth * 2));
-    
-    const totalWidth = cards.length * cardWidth;
-    const maxOffset = -(totalWidth - wrapperWidth);
+        currentIndex++;
 
-    // Límites para evitar que se pase del inicio o del final
-    if (currentOffset > 0) currentOffset = 0;
-    if (currentOffset < maxOffset && maxOffset < 0) currentOffset = maxOffset;
+        updateCarousel();
 
-    grid.style.transform = `translateX(${currentOffset}px)`;
-}
+    }
+
+});
+
+
+
+// ================================
+// RESPONSIVE
+// ================================
+
+window.addEventListener("resize",()=>{
+
+    updateCarousel();
+
+});
+
+
+
+// ================================
+// TECLADO
+// ================================
+
+document.addEventListener("keydown",e=>{
+
+    if(e.key==="ArrowRight"){
+
+        nextBtn.click();
+
+    }
+
+    if(e.key==="ArrowLeft"){
+
+        prevBtn.click();
+
+    }
+
+});
+
+
+
+// ================================
+// DRAG CON MOUSE
+// ================================
+
+let isDown=false;
+
+let startX;
+
+let scrollLeft;
+
+const container=document.querySelector(".carousel-track-container");
+
+container.addEventListener("mousedown",(e)=>{
+
+    isDown=true;
+
+    startX=e.pageX;
+
+    scrollLeft=container.scrollLeft;
+
+});
+
+container.addEventListener("mouseleave",()=>{
+
+    isDown=false;
+
+});
+
+container.addEventListener("mouseup",()=>{
+
+    isDown=false;
+
+});
+
+container.addEventListener("mousemove",(e)=>{
+
+    if(!isDown) return;
+
+    e.preventDefault();
+
+    const walk=(e.pageX-startX)*1.5;
+
+    container.scrollLeft=scrollLeft-walk;
+
+});
+
+
+
+// ================================
+// SWIPE CELULAR
+// ================================
+
+let touchStart=0;
+
+container.addEventListener("touchstart",(e)=>{
+
+    touchStart=e.touches[0].clientX;
+
+});
+
+container.addEventListener("touchend",(e)=>{
+
+    const touchEnd=e.changedTouches[0].clientX;
+
+    const diff=touchStart-touchEnd;
+
+    if(Math.abs(diff)<50) return;
+
+    if(diff>0){
+
+        nextBtn.click();
+
+    }else{
+
+        prevBtn.click();
+
+    }
+
+});

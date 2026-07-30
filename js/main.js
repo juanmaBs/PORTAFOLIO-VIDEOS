@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             data.forEach(p => {
                 grid.innerHTML += `
                     <div class="video-card">
-                        <video controls playsinline
+                        <video controls playsinline preload="none"
                                style="width: 100%; aspect-ratio: 9/16; object-fit: cover;">
                             <source src="${p.url}" type="video/mp4">
                             Tu navegador no soporta videos.
@@ -25,31 +25,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
             document.querySelectorAll('.video-card').forEach(card => observer.observe(card));
+
+            // --- INICIAR EL MOVIMIENTO AUTOMÁTICO ---
+            initAutoScroll();
         })
         .catch(err => console.log("Error al cargar JSON:", err));
 });
 
 let currentOffset = 0;
+let autoScrollInterval;
 
 function moveSlide(direction) {
     const grid = document.getElementById('video-grid');
     const cards = grid.querySelectorAll('.video-card');
     if (cards.length === 0) return;
 
-    // Mide el ancho real de la tarjeta más el margen (gap de 20px)
     const cardWidth = cards[0].offsetWidth + 20; 
     const wrapperWidth = grid.parentElement.offsetWidth;
     
-    // Mueve de a 2 tarjetas por cada clic para mayor fluidez
-    currentOffset -= (direction * (cardWidth * 2));
+    currentOffset -= (direction * cardWidth); // Se mueve de a 1 tarjeta para que sea suave
     
-    // Calcula el ancho total real de todas las tarjetas generadas
     const totalWidth = cards.length * cardWidth;
     const maxOffset = -(totalWidth - wrapperWidth);
 
-    // Límites para evitar que se pase del inicio o del final
-    if (currentOffset > 0) currentOffset = 0;
-    if (currentOffset < maxOffset && maxOffset < 0) currentOffset = maxOffset;
+    // Si llega al final, vuelve al inicio en bucle infinito
+    if (currentOffset > 0) {
+        currentOffset = maxOffset;
+    } else if (currentOffset < maxOffset && maxOffset < 0) {
+        currentOffset = 0;
+    }
 
     grid.style.transform = `translateX(${currentOffset}px)`;
+}
+
+// Función para el movimiento automático
+function initAutoScroll() {
+    const wrapper = document.getElementById('video-grid-wrapper');
+    if (!wrapper) return;
+
+    // Se mueve automáticamente hacia adelante cada 3.5 segundos
+    autoScrollInterval = setInterval(() => {
+        moveSlide(1);
+    }, 3500);
+
+    // Pausar cuando el cliente ponga el mouse encima del carrusel
+    wrapper.addEventListener('mouseenter', () => {
+        clearInterval(autoScrollInterval);
+    });
+
+    // Reanudar cuando el cliente retire el mouse
+    wrapper.addEventListener('mouseleave', () => {
+        autoScrollInterval = setInterval(() => {
+            moveSlide(1);
+        }, 3500);
+    });
 }

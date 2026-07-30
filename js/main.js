@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.innerHTML = ''; 
 
             data.forEach(p => {
-                
                 grid.innerHTML += `
                     <div class="video-card">
                         <video controls playsinline
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  `;
             });
 
-            // --- MUEVE EL OBSERVADOR AQUÍ ---
+            // Observador para la animación de entrada
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -29,21 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(err => console.log("Error al cargar JSON:", err));
 });
+
 let currentOffset = 0;
 
 function moveSlide(direction) {
     const grid = document.getElementById('video-grid');
-    const cardWidth = 240; 
-    const visibleCards = Math.floor(window.innerWidth / cardWidth);
+    const cards = grid.querySelectorAll('.video-card');
+    if (cards.length === 0) return;
+
+    // Mide el ancho real de la tarjeta más el margen (gap de 20px)
+    const cardWidth = cards[0].offsetWidth + 20; 
+    const wrapperWidth = grid.parentElement.offsetWidth;
     
-    // Calcula el desplazamiento
-    currentOffset -= (direction * cardWidth);
+    // Mueve de a 2 tarjetas por cada clic para mayor fluidez
+    currentOffset -= (direction * (cardWidth * 2));
     
-    // Límites para no pasarse
-    const maxOffset = -(grid.scrollWidth - (visibleCards * cardWidth));
-    
+    // Calcula el ancho total real de todas las tarjetas generadas
+    const totalWidth = cards.length * cardWidth;
+    const maxOffset = -(totalWidth - wrapperWidth);
+
+    // Límites para evitar que se pase del inicio o del final
     if (currentOffset > 0) currentOffset = 0;
     if (currentOffset < maxOffset && maxOffset < 0) currentOffset = maxOffset;
-    
+
     grid.style.transform = `translateX(${currentOffset}px)`;
 }

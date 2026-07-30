@@ -25,15 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
             document.querySelectorAll('.video-card').forEach(card => observer.observe(card));
-
-            // --- INICIAR EL MOVIMIENTO AUTOMÁTICO ---
-            initAutoScroll();
         })
         .catch(err => console.log("Error al cargar JSON:", err));
 });
 
 let currentOffset = 0;
-let autoScrollInterval;
 
 function moveSlide(direction) {
     const grid = document.getElementById('video-grid');
@@ -43,40 +39,15 @@ function moveSlide(direction) {
     const cardWidth = cards[0].offsetWidth + 20; 
     const wrapperWidth = grid.parentElement.offsetWidth;
     
-    currentOffset -= (direction * cardWidth); // Se mueve de a 1 tarjeta para que sea suave
+    // Mueve de a 2 tarjetas por clic para mayor fluidez
+    currentOffset -= (direction * (cardWidth * 2));
     
     const totalWidth = cards.length * cardWidth;
     const maxOffset = -(totalWidth - wrapperWidth);
 
-    // Si llega al final, vuelve al inicio en bucle infinito
-    if (currentOffset > 0) {
-        currentOffset = maxOffset;
-    } else if (currentOffset < maxOffset && maxOffset < 0) {
-        currentOffset = 0;
-    }
+    // Límites para evitar que se pase del inicio o del final
+    if (currentOffset > 0) currentOffset = 0;
+    if (currentOffset < maxOffset && maxOffset < 0) currentOffset = maxOffset;
 
     grid.style.transform = `translateX(${currentOffset}px)`;
-}
-
-// Función para el movimiento automático
-function initAutoScroll() {
-    const wrapper = document.getElementById('video-grid-wrapper');
-    if (!wrapper) return;
-
-    // Se mueve automáticamente hacia adelante cada 3.5 segundos
-    autoScrollInterval = setInterval(() => {
-        moveSlide(1);
-    }, 3500);
-
-    // Pausar cuando el cliente ponga el mouse encima del carrusel
-    wrapper.addEventListener('mouseenter', () => {
-        clearInterval(autoScrollInterval);
-    });
-
-    // Reanudar cuando el cliente retire el mouse
-    wrapper.addEventListener('mouseleave', () => {
-        autoScrollInterval = setInterval(() => {
-            moveSlide(1);
-        }, 3500);
-    });
 }

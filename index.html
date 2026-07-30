@@ -131,33 +131,60 @@
 
     </section>
 
-    <!-- PROYECTOS -->
+    <!-- ================= PROYECTOS ================= -->
     <section id="proyectos">
 
-    <div class="section-title">
-        <span>PORTAFOLIO</span>
-        <h2>Proyectos Destacados</h2>
-    </div>
-
-    <div class="carousel">
-
-        <button class="carousel-btn prev" aria-label="Anterior">
-            <svg viewBox="0 0 24 24">
-                <path d="M15 18L9 12L15 6"/>
-            </svg>
-        </button>
-
-        <div class="carousel-track-container">
-            <div id="video-grid" class="carousel-track"></div>
+        <div class="section-title">
+            <span>PORTAFOLIO</span>
+            <h2>Proyectos Destacados</h2>
         </div>
 
-        <button class="carousel-btn next" aria-label="Siguiente">
-            <svg viewBox="0 0 24 24">
-                <path d="M9 18L15 12L9 6"/>
-            </svg>
-        </button>
+        <div class="carousel">
 
-    </div>
+            <!-- Flecha izquierda -->
+            <button id="prevBtn" class="carousel-btn prev" aria-label="Proyecto anterior">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                    <path
+                        d="M15 18L9 12L15 6"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+
+                </svg>
+
+            </button>
+
+            <!-- Contenedor -->
+            <div class="carousel-track-container">
+
+                <div id="video-grid" class="carousel-track">
+
+                    <!-- Los videos se cargan automáticamente desde projects.json -->
+
+                </div>
+
+            </div>
+
+            <!-- Flecha derecha -->
+            <button id="nextBtn" class="carousel-btn next" aria-label="Proyecto siguiente">
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                    <path
+                        d="M9 18L15 12L9 6"
+                        stroke="currentColor"
+                        stroke-width="2.4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+
+                </svg>
+
+            </button>
+
+        </div>
 
     </section>
 

@@ -1,31 +1,7 @@
 [
   {
-    "titulo": "Proyecto Restaurantes",
-    "url": "assets/video_restaurantes.mp4"
-  },
-  {
-    "titulo": "Proyecto Inmobiliaria",
-    "url": "assets/video_inmobiliaria.mp4"
-  },
-  {
-    "titulo": "Proyecto Influencer",
-    "url": "assets/Video_influencers.mp4"
-  },
-  {
-    "titulo": "Proyecto Influencer 2",
-    "url": "assets/Video_influencer2.mp4"
-  },
-  {
-    "titulo": "Proyecto Ortodoncia 2",
-    "url": "assets/PROYECTO ORTODONCIA 2 (1).mp4"
-  },
-  {
     "titulo": "Proyecto Comercial",
     "url": "assets/PROYECTO COMERCIAL (1).mp4"
-  },
-  {
-    "titulo": "Proyecto Ortodoncia",
-    "url": "assets/PROYECTO ORTODONCIA (1).mp4"
   },
   {
     "titulo": "Proyecto Economía",
@@ -34,5 +10,21 @@
   {
     "titulo": "Proyecto Medicina",
     "url": "assets/PROYECTO MEDICINA (1).mp4"
+  },
+  {
+    "titulo": "Proyecto Ortodoncia",
+    "url": "assets/PROYECTO ORTODONCIA .mp4"
+  },
+  {
+    "titulo": "Proyecto Ortodoncia 2",
+    "url": "assets/PROYECTO ORTODONCIA 2 (1) .mp4"
+  },
+  {
+    "titulo": "Proyecto Influencer 2",
+    "url": "assets/Video_influencer2.mp4"
+  },
+  {
+    "titulo": "Proyecto Influencers",
+    "url": "assets/Video_influencers.mp4"
   }
 ]

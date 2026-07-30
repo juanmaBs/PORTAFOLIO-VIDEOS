@@ -134,22 +134,36 @@
     <!-- PROYECTOS -->
     <section id="proyectos">
 
-        <div class="section-title">
-            <span>PORTAFOLIO</span>
-            <h2>Proyectos Destacados</h2>
-        </div>
+    <div class="section-title">
+        <span>PORTAFOLIO</span>
+        <h2>Proyectos Destacados</h2>
+    </div>
 
-        <!-- Contenedor del carrusel con las flechas -->
-        <div id="video-grid-wrapper">
-            <!-- Botón Izquierda -->
-            <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-            
-            <!-- Grid donde JavaScript cargará automáticamente los videos del JSON -->
-            <div id="video-grid"></div>
+    <div id="video-grid-wrapper">
 
-            <!-- Botón Derecha -->
-            <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
-        </div>
+        <button class="nav-btn prev" onclick="moveSlide(-1)" aria-label="Proyecto anterior">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6"
+                    stroke="white"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <div id="video-grid"></div>
+
+        <button class="nav-btn next" onclick="moveSlide(1)" aria-label="Proyecto siguiente">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6"
+                    stroke="white"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+    </div>
 
     </section>
 

@@ -12,7 +12,27 @@
     "url": "assets/Video_influencers.mp4"
   },
   {
-    "titulo": "Proyecto Influencer",
+    "titulo": "Proyecto Influencer 2",
     "url": "assets/Video_influencer2.mp4"
+  },
+  {
+    "titulo": "Proyecto Comercial",
+    "url": "assets/video_comercial.mp4"
+  },
+  {
+    "titulo": "Proyecto Economía",
+    "url": "assets/video_economia.mp4"
+  },
+  {
+    "titulo": "Proyecto Medicina",
+    "url": "assets/video_medicina.mp4"
+  },
+  {
+    "titulo": "Proyecto Ortodoncia",
+    "url": "assets/video_ortodoncia.mp4"
+  },
+  {
+    "titulo": "Proyecto Ortodoncia 2",
+    "url": "assets/video_ortodoncia2.mp4"
   }
 ]

@@ -139,58 +139,16 @@
             <h2>Proyectos Destacados</h2>
         </div>
 
-        <div id="video-grid">
+        <!-- Contenedor del carrusel con las flechas -->
+        <div id="video-grid-wrapper">
+            <!-- Botón Izquierda -->
+            <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            
+            <!-- Grid donde JavaScript cargará automáticamente los videos del JSON -->
+            <div id="video-grid"></div>
 
-            <!-- Video 1: Restaurantes -->
-            <div class="video-card">
-                <video
-                    src="assets/video_restaurantes.mp4"
-                    muted
-                    loop
-                    onclick="this.paused ? this.play() : this.pause()"
-                    onmouseover="this.play()"
-                    onmouseout="this.pause()">
-                </video>
-                <h3>Proyecto Restaurantes</h3>
-             </div>
-
-             <!-- Video 2: Inmobiliaria -->
-             <div class="video-card">
-                 <video
-                     src="assets/video_inmobiliaria.mp4"
-                     muted
-                     loop
-                     onclick="this.paused ? this.play() : this.pause()"
-                     onmouseover="this.play()"
-                     onmouseout="this.pause()">
-                 </video>
-                 <h3>Proyecto Inmobiliaria</h3>
-              </div>
-
-              <div class="video-card">
-                  <video
-                      src="assets/Video_influencers.mp4"
-                      muted
-                      loop
-                      onclick="this.paused ? this.play() : this.pause()"
-                      onmouseover="this.play()"
-                      onmouseout="this.pause()">
-                  </video>
-                  <h3>Proyecto Influencers</h3>
-              </div>
-
-              <div class="video-card">
-                  <video
-                      src="assets/Video_influencer2.mp4"
-                      muted
-                      loop
-                      onclick="this.paused ? this.play() : this.pause()"
-                      onmouseover="this.play()"
-                      onmouseout="this.pause()">
-                  </video>
-                  <h3>Proyecto Influencer</h3>
-              </div>
-
+            <!-- Botón Derecha -->
+            <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
         </div>
 
     </section>

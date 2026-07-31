@@ -657,3 +657,314 @@ CONTACTO PREMIUM
     box-shadow:0 0 30px rgba(139,92,246,.45);
 
 }
+/*=========================================
+CONTACTO PREMIUM
+=========================================*/
+
+.contact-premium{
+
+    position:relative;
+
+    padding:150px 8%;
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+/* Luces de fondo */
+
+.contact-premium::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:#00d4ff;
+
+    filter:blur(170px);
+
+    opacity:.10;
+
+    left:-120px;
+
+    top:30%;
+
+}
+
+.contact-premium::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:#8b5cf6;
+
+    filter:blur(170px);
+
+    opacity:.10;
+
+    right:-120px;
+
+    bottom:-50px;
+
+}
+
+/* Caja principal */
+
+.contact-box{
+
+    max-width:850px;
+
+    margin:auto;
+
+    margin-bottom:80px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.contact-tag{
+
+    color:#00d4ff;
+
+    letter-spacing:4px;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+
+.contact-box h2{
+
+    margin-top:18px;
+
+    font-size:3.5rem;
+
+    line-height:1.1;
+
+}
+
+.contact-box p{
+
+    margin:30px auto;
+
+    max-width:720px;
+
+    color:#bdbdbd;
+
+    line-height:1.8;
+
+    font-size:1.15rem;
+
+}
+
+/* Botón */
+
+.contact-main-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:18px 42px;
+
+    border-radius:60px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:700;
+
+    background:linear-gradient(90deg,#00cfff,#8b5cf6);
+
+    transition:.35s;
+
+    box-shadow:0 12px 35px rgba(139,92,246,.25);
+
+}
+
+.contact-main-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 20px 45px rgba(139,92,246,.45);
+
+}
+
+/* Tarjetas */
+
+.contact-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+.contact-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:40px 25px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    transition:.35s;
+
+}
+
+.contact-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    background:linear-gradient(#00d4ff,#8b5cf6);
+
+    border-radius:50%;
+
+    filter:blur(90px);
+
+    opacity:0;
+
+    transition:.45s;
+
+    top:-60px;
+
+    right:-60px;
+
+}
+
+.contact-card:hover{
+
+    transform:translateY(-12px);
+
+    border-color:#8b5cf6;
+
+    box-shadow:0 25px 45px rgba(0,0,0,.45);
+
+}
+
+.contact-card:hover::before{
+
+    opacity:.25;
+
+}
+
+.contact-icon{
+
+    width:78px;
+
+    height:78px;
+
+    margin:auto;
+
+    margin-bottom:25px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(135deg,#00d4ff,#8b5cf6);
+
+    font-size:2rem;
+
+}
+
+.contact-card h3{
+
+    font-size:1.35rem;
+
+    margin-bottom:10px;
+
+}
+
+.contact-card span{
+
+    color:#b9b9b9;
+
+}
+
+/* Footer */
+
+footer{
+
+    padding:35px;
+
+    text-align:center;
+
+    color:#7b7b7b;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.contact-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.contact-box h2{
+
+font-size:2.6rem;
+
+}
+
+.contact-premium{
+
+padding:100px 25px;
+
+}
+
+}

@@ -538,3 +538,122 @@ footer{
     }
 
 }
+/*=========================
+CONTACTO PREMIUM
+=========================*/
+
+.contact-section{
+
+    padding:140px 20px;
+
+    text-align:center;
+
+}
+
+.contact-description{
+
+    max-width:700px;
+
+    margin:20px auto 70px;
+
+    color:#bdbdbd;
+
+    line-height:1.8;
+
+    font-size:1.1rem;
+
+}
+
+.contact-grid{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+}
+
+.contact-card{
+
+    width:270px;
+
+    padding:35px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    transition:.35s;
+
+}
+
+.contact-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#8b5cf6;
+
+    box-shadow:0 0 35px rgba(139,92,246,.35);
+
+}
+
+.contact-icon{
+
+    font-size:3rem;
+
+    margin-bottom:20px;
+
+}
+
+.contact-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.contact-card p{
+
+    color:#9d9d9d;
+
+}
+
+.contact-btn{
+
+    display:inline-block;
+
+    margin-top:60px;
+
+    padding:18px 45px;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:700;
+
+    background:linear-gradient(90deg,#00d4ff,#8b5cf6);
+
+    transition:.3s;
+
+}
+
+.contact-btn:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 30px rgba(139,92,246,.45);
+
+}

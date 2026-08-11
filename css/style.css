@@ -1204,3 +1204,53 @@ footer {
     }
 
 }
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px 40px;
+    align-items: start;
+}
+
+.project-card {
+    width: 100%;
+}
+
+.project-media {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3f3f3;
+    border-radius: 28px;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.project-media video {
+    width: 300px;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    display: block;
+    border-radius: 22px;
+}
+@media (max-width: 900px) {
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .project-media {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .project-media video {
+        width: min(82vw, 320px);
+        border-radius: 20px;
+    }
+
+}

@@ -1,271 +1,1844 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juan Manuel Bello | Editor de Video</title>
 
-    <link rel="stylesheet" href="css/style.css?v=2.0">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juan Manuel Bello | Video Editor</title>
+
+    <meta name="description"
+        content="Juan Manuel Bello — Video Editor especializado en Reels, TikTok, Shorts, YouTube y contenido para marcas.">
+
+    <meta name="keywords"
+        content="video editor, editor de video, reels, tiktok, shorts, video editing, Colombia">
+
+    <meta name="author" content="Juan Manuel Bello">
+
+    <!-- GOOGLE FONTS -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="logo">JMB</div>
 
-        <ul class="nav-links">
-            <li><a href="#sobre-mi">Sobre mí</a></li>
-            <li><a href="#proyectos">Proyectos</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
 
-    <!-- BANNER -->
-    <img src="assets/banner.png" alt="Juan Manuel Bello Banner" class="banner-img">
+    <div class="noise"></div>
 
-    <!-- HERO -->
-    <section class="hero-info">
+    <div class="glow glow-1"></div>
 
-        <span class="tag">
-            VIDEO EDITOR • CONTENT CREATOR
-        </span>
+    <div class="glow glow-2"></div>
 
-        <h1>
-            Transformo ideas en contenido que conecta y genera resultados.
-        </h1>
 
-        <p>
-            Ayudo a marcas, negocios y creadores a destacar en TikTok,
-            Instagram y YouTube mediante edición profesional,
-            storytelling y estrategias visuales modernas.
-        </p>
+    <!-- =====================================================
+         CUSTOM CURSOR
+    ====================================================== -->
 
-        <div class="hero-buttons">
+    <div class="cursor"></div>
 
-            <a href="#proyectos" class="btn-primary">
-                Ver Proyectos
+    <div class="cursor-follower"></div>
+
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <a href="#inicio" class="logo">
+            JMB<span>.</span>
+        </a>
+
+
+        <nav>
+
+            <a href="#inicio">
+                Inicio
             </a>
 
-            <a href="#contacto" class="btn-secondary">
-                Contactarme
+            <a href="#sobre-mi">
+                Sobre mí
             </a>
 
-        </div>
+            <a href="#servicios">
+                Servicios
+            </a>
 
-    </section>
+            <a href="#proyectos">
+                Proyectos
+            </a>
 
-    <!-- ESTADÍSTICAS -->
-    <section class="stats">
+            <a href="#contacto">
+                Contacto
+            </a>
 
-        <div class="stat-card">
-            <h3>100+</h3>
-            <p>Videos Editados</p>
-        </div>
+        </nav>
 
-        <div class="stat-card">
-            <h3>5M+</h3>
-            <p>Visualizaciones</p>
-        </div>
 
-        <div class="stat-card">
-            <h3>10+</h3>
-            <p>Años de experiencia</p>
-        </div>
+        <a href="#contacto"
+            class="nav-button">
 
-    </section>
+            Trabajemos
 
-    <!-- SOBRE MI -->
-    <section id="sobre-mi" class="about-section">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
-        <div class="section-title">
-            <span>CONÓCEME</span>
-            <h2>Sobre mí</h2>
-        </div>
+        </a>
 
-        <p>
-            Soy Juan Manuel Bello, editor de video especializado
-            en contenido para redes sociales. Mi objetivo es crear
-            videos que atrapen la atención, transmitan emociones
-            y ayuden a las marcas a crecer.
-        </p>
+    </header>
 
-    </section>
 
-    <!-- SERVICIOS -->
-    <section id="servicios" class="services-section">
 
-        <div class="section-title">
-            <span>LO QUE HAGO</span>
-            <h2>Servicios</h2>
-        </div>
+    <main>
 
-        <div class="services-grid">
 
-            <div class="service-card">
-                <h3>🎬 Edición de Reels</h3>
-                <p>Videos dinámicos para Instagram y Facebook.</p>
-            </div>
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
 
-            <div class="service-card">
-                <h3>📱 TikTok Content</h3>
-                <p>Contenido optimizado para retención.</p>
-            </div>
+        <section class="hero section"
+            id="inicio">
 
-            <div class="service-card">
-                <h3>▶️ YouTube Shorts</h3>
-                <p>Edición rápida y profesional.</p>
-            </div>
 
-            <div class="service-card">
-                <h3>🚀 Video Marketing</h3>
-                <p>Contenido pensado para convertir y vender.</p>
-            </div>
+            <div class="hero-content">
 
-        </div>
 
-    </section>
+                <div class="availability reveal">
 
-    <!-- ================= PROYECTOS ================= -->
-    <section id="proyectos">
+                    <span></span>
 
-        <div class="section-title">
-            <span>PORTAFOLIO</span>
-            <h2>Proyectos Destacados</h2>
-        </div>
-
-        <div class="carousel">
-
-            <!-- Flecha izquierda -->
-            <button id="prevBtn" class="carousel-btn prev" aria-label="Proyecto anterior">
-
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                    <path
-                        d="M15 18L9 12L15 6"
-                        stroke="currentColor"
-                        stroke-width="2.4"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-
-                </svg>
-
-            </button>
-
-            <!-- Contenedor -->
-            <div class="carousel-track-container">
-
-                <div id="video-grid" class="carousel-track">
-
-                    <!-- Los videos se cargan automáticamente desde projects.json -->
+                    Disponible para nuevos proyectos
 
                 </div>
 
+
+                <p class="eyebrow reveal">
+
+                    VIDEO EDITOR
+
+                    <span>•</span>
+
+                    CONTENT CREATOR
+
+                </p>
+
+
+                <h1 class="hero-title reveal">
+
+                    Hago que tus
+
+                    <span class="gradient-text">
+                        videos
+                    </span>
+
+                    <br>
+
+                    sean imposibles de ignorar.
+
+                </h1>
+
+
+                <p class="hero-description reveal">
+
+                    Edición dinámica, storytelling y recursos
+                    visuales diseñados para captar atención,
+                    aumentar la retención y hacer que tu contenido
+                    destaque.
+
+                </p>
+
+
+                <div class="hero-buttons reveal">
+
+
+                    <a href="#proyectos"
+                        class="button button-primary">
+
+                        Ver mis proyectos
+
+                        <i class="fa-solid fa-arrow-down"></i>
+
+                    </a>
+
+
+                    <a href="#contacto"
+                        class="button button-secondary">
+
+                        Contactarme
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                    </a>
+
+
+                </div>
+
+
             </div>
 
-            <!-- Flecha derecha -->
-            <button id="nextBtn" class="carousel-btn next" aria-label="Proyecto siguiente">
 
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
 
-                    <path
-                        d="M9 18L15 12L9 6"
-                        stroke="currentColor"
-                        stroke-width="2.4"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
+            <!-- HERO VISUAL -->
 
-                </svg>
+            <div class="hero-visual">
 
-            </button>
+
+                <div class="floating-card card-one">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    <span>
+                        EDIT
+                    </span>
+
+                </div>
+
+
+                <div class="floating-card card-two">
+
+                    <span>
+                        RETENTION
+                    </span>
+
+                    <strong>
+                        ↑
+                    </strong>
+
+                </div>
+
+
+                <div class="video-orb">
+
+
+                    <div class="orb-inner">
+
+                        <i class="fa-solid fa-play"></i>
+
+                    </div>
+
+
+                    <div class="orbit orbit-1"></div>
+
+                    <div class="orbit orbit-2"></div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="scroll-indicator">
+
+                <span>
+                    SCROLL
+                </span>
+
+                <div></div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             STATS
+        ====================================================== -->
+
+        <section class="stats">
+
+
+            <div class="stat reveal">
+
+                <strong class="counter"
+                    data-target="100">
+
+                    0
+
+                </strong>
+
+                <span>
+                    +
+                </span>
+
+                <p>
+                    Videos editados
+                </p>
+
+            </div>
+
+
+
+            <div class="stat reveal">
+
+                <strong class="counter"
+                    data-target="5">
+
+                    0
+
+                </strong>
+
+                <span>
+                    M+
+                </span>
+
+                <p>
+                    Visualizaciones
+                </p>
+
+            </div>
+
+
+
+            <div class="stat reveal">
+
+                <strong class="counter"
+                    data-target="20">
+
+                    0
+
+                </strong>
+
+                <span>
+                    +
+                </span>
+
+                <p>
+                    Proyectos
+                </p>
+
+            </div>
+
+
+
+            <div class="stat reveal">
+
+                <strong class="counter"
+                    data-target="100">
+
+                    0
+
+                </strong>
+
+                <span>
+                    %
+                </span>
+
+                <p>
+                    Compromiso
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SOBRE MI
+        ====================================================== -->
+
+        <section class="section about"
+            id="sobre-mi">
+
+
+            <div class="section-label reveal">
+
+                <span>
+                    01
+                </span>
+
+                CONÓCEME
+
+            </div>
+
+
+            <div class="about-grid">
+
+
+                <div class="about-title reveal">
+
+                    <h2>
+
+                        No solo edito
+
+                        <span>
+                            videos.
+                        </span>
+
+                    </h2>
+
+                </div>
+
+
+                <div class="about-text reveal">
+
+
+                    <p class="large-text">
+
+                        Creo contenido pensado para que
+                        la gente
+
+                        <strong>
+                            se detenga, mire y recuerde.
+                        </strong>
+
+                    </p>
+
+
+                    <p>
+
+                        Soy Juan Manuel Bello, editor de video
+                        especializado en contenido para redes
+                        sociales.
+
+                    </p>
+
+
+                    <p>
+
+                        Combino edición, storytelling, ritmo,
+                        subtítulos, efectos, sonido y recursos
+                        visuales para convertir ideas en contenido
+                        atractivo.
+
+                    </p>
+
+
+                    <p>
+
+                        Mi objetivo es que cada segundo tenga
+                        un propósito: captar atención, mantener
+                        la retención y ayudar a que tu contenido
+                        destaque.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             MARQUEE
+        ====================================================== -->
+
+        <div class="marquee">
+
+
+            <div class="marquee-track">
+
+
+                <span>
+                    EDITING
+                </span>
+
+                <i class="fa-solid fa-star"></i>
+
+
+                <span>
+                    STORYTELLING
+                </span>
+
+                <i class="fa-solid fa-star"></i>
+
+
+                <span>
+                    RETENTION
+                </span>
+
+                <i class="fa-solid fa-star"></i>
+
+
+                <span>
+                    CREATIVITY
+                </span>
+
+                <i class="fa-solid fa-star"></i>
+
+
+                <span>
+                    EDITING
+                </span>
+
+                <i class="fa-solid fa-star"></i>
+
+
+                <span>
+                    STORYTELLING
+                </span>
+
+                <i class="fa-solid fa-star"></i>
+
+
+            </div>
+
 
         </div>
 
-    </section>
 
-    <!-- ================= CONTACTO PREMIUM ================= -->
 
-<section id="contacto" class="contact-premium">
+        <!-- =====================================================
+             SERVICIOS
+        ====================================================== -->
 
-    <div class="contact-box">
+        <section class="section services"
+            id="servicios">
 
-        <span class="contact-tag">
-            TRABAJEMOS JUNTOS
-        </span>
 
-        <h2>
-            ¿Listo para llevar tu contenido al siguiente nivel?
-        </h2>
+            <div class="section-label reveal">
 
-        <p>
-            Creo videos que captan la atención, aumentan la retención
-            y hacen que tu marca destaque en redes sociales.
-        </p>
+                <span>
+                    02
+                </span>
 
-        <a href="mailto:tuemail@gmail.com" class="contact-main-btn">
-            Solicitar Cotización
-        </a>
+                LO QUE HAGO
+
+            </div>
+
+
+            <div class="section-heading reveal">
+
+
+                <h2>
+
+                    Servicios que hacen
+
+                    <span>
+                        crecer tu contenido.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Desde contenido corto hasta piezas
+                    pensadas para marketing y YouTube.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="services-grid">
+
+
+                <!-- SERVICE 01 -->
+
+                <article class="service-card reveal">
+
+
+                    <div class="service-number">
+                        01
+                    </div>
+
+
+                    <i class="fa-solid fa-film service-icon"></i>
+
+
+                    <h3>
+                        Reels & Shorts
+                    </h3>
+
+
+                    <p>
+
+                        Edición vertical dinámica para
+                        Instagram, TikTok y YouTube Shorts.
+
+                    </p>
+
+
+                    <div class="service-tags">
+
+                        <span>
+                            9:16
+                        </span>
+
+                        <span>
+                            HOOKS
+                        </span>
+
+                        <span>
+                            RETENTION
+                        </span>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- SERVICE 02 -->
+
+                <article class="service-card reveal">
+
+
+                    <div class="service-number">
+                        02
+                    </div>
+
+
+                    <i class="fa-solid fa-gamepad service-icon"></i>
+
+
+                    <h3>
+                        Gaming
+                    </h3>
+
+
+                    <p>
+
+                        Memes, zooms, sonidos, subtítulos
+                        y edición dinámica para contenido
+                        gaming.
+
+                    </p>
+
+
+                    <div class="service-tags">
+
+                        <span>
+                            MEMES
+                        </span>
+
+                        <span>
+                            SFX
+                        </span>
+
+                        <span>
+                            ZOOMS
+                        </span>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- SERVICE 03 -->
+
+                <article class="service-card reveal">
+
+
+                    <div class="service-number">
+                        03
+                    </div>
+
+
+                    <i class="fa-solid fa-bullhorn service-icon"></i>
+
+
+                    <h3>
+                        Video Marketing
+                    </h3>
+
+
+                    <p>
+
+                        Videos para marcas y negocios
+                        diseñados para comunicar y convertir.
+
+                    </p>
+
+
+                    <div class="service-tags">
+
+                        <span>
+                            ADS
+                        </span>
+
+                        <span>
+                            BRANDING
+                        </span>
+
+                        <span>
+                            CONTENT
+                        </span>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- SERVICE 04 -->
+
+                <article class="service-card reveal">
+
+
+                    <div class="service-number">
+                        04
+                    </div>
+
+
+                    <i class="fa-brands fa-youtube service-icon"></i>
+
+
+                    <h3>
+                        YouTube
+                    </h3>
+
+
+                    <p>
+
+                        Edición de videos largos con ritmo,
+                        storytelling, recursos visuales
+                        y estructura.
+
+                    </p>
+
+
+                    <div class="service-tags">
+
+                        <span>
+                            LONG FORM
+                        </span>
+
+                        <span>
+                            STORY
+                        </span>
+
+                        <span>
+                            YOUTUBE
+                        </span>
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROYECTOS
+        ====================================================== -->
+
+        <section class="section projects"
+            id="proyectos">
+
+
+            <div class="section-label reveal">
+
+                <span>
+                    03
+                </span>
+
+                PORTAFOLIO
+
+            </div>
+
+
+            <div class="section-heading projects-heading reveal">
+
+
+                <h2>
+
+                    Algunos de mis
+
+                    <span>
+                        trabajos.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Una selección de proyectos de edición,
+                    marketing y contenido para redes sociales.
+
+                </p>
+
+
+            </div>
+
+
+
+            <div class="projects-grid">
+
+
+
+                <!-- =================================================
+                     PROJECT 01
+                ================================================== -->
+
+                <article class="project-card project-large reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/PROYECTO%20COMERCIAL%20(1).mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                COMERCIAL
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                01 / MARKETING
+                            </span>
+
+                            <h3>
+                                Proyecto Comercial
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Video Marketing
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 02
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/PROYECTO%20ECONOMIA%20(1).mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                ECONOMÍA
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                02 / SOCIAL MEDIA
+                            </span>
+
+                            <h3>
+                                Proyecto Economía
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Reel
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 03
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/PROYECTO%20MEDICINA%20(1).mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                MEDICINA
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                03 / HEALTH
+                            </span>
+
+                            <h3>
+                                Proyecto Medicina
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Content
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 04
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/PROYECTO%20ORTODONCIA.mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                ORTODONCIA
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                04 / HEALTH
+                            </span>
+
+                            <h3>
+                                Proyecto Ortodoncia
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Reel
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 05
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/PROYECTO%20ORTODONCIA%202%20(1).mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                ORTODONCIA
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                05 / SOCIAL MEDIA
+                            </span>
+
+                            <h3>
+                                Ortodoncia 02
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Reel
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 06
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/Video_influencer2.mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                INFLUENCER
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                06 / CREATOR
+                            </span>
+
+                            <h3>
+                                Influencer Content
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Short Form
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 07
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/Video_influencers.mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                INFLUENCERS
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                07 / CREATOR
+                            </span>
+
+                            <h3>
+                                Influencers
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Social Media
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 08
+                ================================================== -->
+
+                <article class="project-card reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/video_inmobiliaria.mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                REAL ESTATE
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                08 / REAL ESTATE
+                            </span>
+
+                            <h3>
+                                Inmobiliaria
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Marketing
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     PROJECT 09
+                ================================================== -->
+
+                <article class="project-card project-wide reveal">
+
+
+                    <div class="project-media">
+
+
+                        <video
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            class="portfolio-video">
+
+
+                            <source
+                                src="assets/video_restaurantes.mp4"
+                                type="video/mp4">
+
+
+                        </video>
+
+
+                        <div class="project-overlay">
+
+
+                            <span>
+                                FOOD &amp; RESTAURANTS
+                            </span>
+
+
+                            <button
+                                class="play-project"
+                                aria-label="Reproducir proyecto">
+
+                                <i class="fa-solid fa-play"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="project-info">
+
+
+                        <div>
+
+                            <span>
+                                09 / GASTRONOMÍA
+                            </span>
+
+                            <h3>
+                                Contenido para restaurantes
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+                            Social Media
+                        </p>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROCESO
+        ====================================================== -->
+
+        <section class="section process">
+
+
+            <div class="section-label reveal">
+
+                <span>
+                    04
+                </span>
+
+                PROCESO
+
+            </div>
+
+
+            <div class="process-heading reveal">
+
+
+                <h2>
+
+                    De la idea al
+
+                    <span>
+                        resultado final.
+                    </span>
+
+                </h2>
+
+
+            </div>
+
+
+
+            <div class="process-list">
+
+
+                <div class="process-item reveal">
+
+
+                    <span>
+                        01
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            Brief
+                        </h3>
+
+                        <p>
+                            Entiendo tu objetivo,
+                            audiencia y estilo.
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+
+                </div>
+
+
+
+                <div class="process-item reveal">
+
+
+                    <span>
+                        02
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            Edición
+                        </h3>
+
+                        <p>
+                            Construyo ritmo,
+                            storytelling y recursos visuales.
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+
+                </div>
+
+
+
+                <div class="process-item reveal">
+
+
+                    <span>
+                        03
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            Revisión
+                        </h3>
+
+                        <p>
+                            Ajustamos detalles hasta
+                            llegar al resultado esperado.
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+
+                </div>
+
+
+
+                <div class="process-item reveal">
+
+
+                    <span>
+                        04
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            Entrega
+                        </h3>
+
+                        <p>
+                            Recibes tu contenido
+                            listo para publicar.
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-check"></i>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CTA
+        ====================================================== -->
+
+        <section class="cta section"
+            id="contacto">
+
+
+            <div class="cta-glow"></div>
+
+
+            <div class="cta-content reveal">
+
+
+                <p class="eyebrow">
+                    ¿TIENES UN PROYECTO?
+                </p>
+
+
+                <h2>
+
+                    Hagamos algo que
+
+                    <span>
+                        merezca ser visto.
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Cuéntame qué necesitas y hablamos
+                    sobre tu próximo video.
+
+                </p>
+
+
+                <!-- CAMBIA TU CORREO -->
+
+                <a href="mailto:TU_CORREO@gmail.com"
+                    class="button button-primary">
+
+                    Hablemos
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+
+        <div class="footer-top">
+
+
+            <div class="footer-logo">
+
+                JMB<span>.</span>
+
+            </div>
+
+
+            <p>
+                Video Editor &amp; Content Creator
+            </p>
+
+
+        </div>
+
+
+
+        <div class="footer-bottom">
+
+
+            <span>
+
+                © 2026 Juan Manuel Bello
+
+            </span>
+
+
+            <div class="socials">
+
+
+                <a href="#"
+                    target="_blank"
+                    rel="noopener">
+
+                    <i class="fa-brands fa-instagram"></i>
+
+                </a>
+
+
+                <a href="#"
+                    target="_blank"
+                    rel="noopener">
+
+                    <i class="fa-brands fa-tiktok"></i>
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         VIDEO MODAL
+    ====================================================== -->
+
+    <div class="video-modal"
+        id="videoModal">
+
+
+        <div class="modal-background"></div>
+
+
+        <div class="modal-content">
+
+
+            <button class="modal-close"
+                id="modalClose"
+                aria-label="Cerrar video">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <video
+                id="modalVideo"
+                controls
+                playsinline>
+
+            </video>
+
+
+        </div>
+
 
     </div>
 
 
-    <div class="contact-grid">
 
-        <a href="https://instagram.com/juanmanuelbello_" target="_blank" class="contact-card">
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
-            <div class="contact-icon">
-                <i class="fa-brands fa-instagram"></i>
-            </div>
+    <script src="script.js"></script>
 
-            <h3>Instagram</h3>
-
-            <span>@juanmanuelbello_</span>
-
-        </a>
-
-
-        <a href="https://tiktok.com/@juanmanuelbello_" target="_blank" class="contact-card">
-
-            <div class="contact-icon">
-                <i class="fa-brands fa-tiktok"></i>
-            </div>
-
-            <h3>TikTok</h3>
-
-            <span>@juanmanuelbello_</span>
-
-        </a>
-
-
-        <a href="mailto:tuemail@gmail.com" class="contact-card">
-
-            <div class="contact-icon">
-                <i class="fa-solid fa-envelope"></i>
-            </div>
-
-            <h3>Email</h3>
-
-            <span>tuemail@gmail.com</span>
-
-        </a>
-
-    </div>
-
-</section>
-
-<footer>
-
-    © 2026 Juan Manuel Bello • Todos los derechos reservados.
-
-</footer>
-
-    <script src="js/main.js"></script>
 
 </body>
+
 </html>

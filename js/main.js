@@ -331,19 +331,64 @@ document.addEventListener("DOMContentLoaded", () => {
    VIDEO MODAL
 ===================================================== */
 
-const modal =
-    document.getElementById("videoModal");
-
-const modalVideo =
-    document.getElementById("modalVideo");
-
-const modalClose =
-    document.getElementById("modalClose");
-
-const modalBackground =
-    document.querySelector(".modal-background");
+const modal = document.getElementById("videoModal");
+const modalVideo = document.getElementById("modalVideo");
+const modalClose = document.getElementById("modalClose");
+const modalBackground = document.querySelector(".modal-background");
 
 let activeProjectCard = null;
+let activePlayButton = null;
+
+
+/* =====================================================
+   OCULTAR BOTÓN PLAY
+===================================================== */
+
+function hideProjectPlay(card, button) {
+
+    if (button) {
+
+        button.style.opacity = "0";
+        button.style.visibility = "hidden";
+        button.style.pointerEvents = "none";
+
+    }
+
+    if (card) {
+
+        card.classList.add("video-playing");
+
+    }
+
+}
+
+
+/* =====================================================
+   MOSTRAR BOTÓN PLAY
+===================================================== */
+
+function showProjectPlay() {
+
+    if (activePlayButton) {
+
+        activePlayButton.style.opacity = "";
+        activePlayButton.style.visibility = "";
+        activePlayButton.style.pointerEvents = "";
+
+    }
+
+    if (activeProjectCard) {
+
+        activeProjectCard.classList.remove(
+            "video-playing"
+        );
+
+    }
+
+    activePlayButton = null;
+    activeProjectCard = null;
+
+}
 
 
 /* =====================================================
@@ -354,54 +399,49 @@ function closeModal() {
 
     if (!modal || !modalVideo) return;
 
-    modal.classList.remove("active");
+
+    /* Detener completamente el video */
 
     modalVideo.pause();
+
+    modalVideo.currentTime = 0;
+
+
+    /* Quitar fuente */
 
     modalVideo.removeAttribute("src");
 
     modalVideo.load();
 
-    /*
-       IMPORTANTE:
-       NO usamos overflow:hidden.
 
-       De esta manera la barra de desplazamiento
-       de la página permanece visible.
+    /* Quitar modal */
+
+    modal.classList.remove("active");
+
+
+    /*
+       MUY IMPORTANTE:
+
+       NO usamos overflow:hidden.
+       La página conserva su scrollbar.
     */
 
     document.body.style.overflow = "";
-
     document.documentElement.style.overflow = "";
 
 
-    /*
-       Volvemos a mostrar el botón Play
-       de la tarjeta original.
-    */
+    /* Restaurar botón */
 
-    if (activeProjectCard) {
-
-        activeProjectCard.classList.remove(
-            "video-open"
-        );
-
-        activeProjectCard = null;
-
-    }
+    showProjectPlay();
 
 }
 
 
-
 /* =====================================================
-   ABRIR MODAL
+   ABRIR VIDEO
 ===================================================== */
 
-if (
-    modal &&
-    modalVideo
-) {
+if (modal && modalVideo) {
 
     document
         .querySelectorAll(".play-project")
@@ -412,14 +452,11 @@ if (
                 event => {
 
                     event.preventDefault();
-
                     event.stopPropagation();
 
 
                     const card =
-                        button.closest(
-                            ".project-card"
-                        );
+                        button.closest(".project-card");
 
 
                     if (!card) return;
@@ -435,27 +472,18 @@ if (
 
 
                     const source =
-                        video.querySelector(
-                            "source"
-                        );
+                        video.querySelector("source");
 
 
                     if (!source) return;
 
 
                     let videoSrc =
-                        source.getAttribute(
-                            "src"
-                        );
+                        source.getAttribute("src");
 
 
                     if (!videoSrc) return;
 
-
-                    /*
-                       Convertimos la ruta del video
-                       en una URL absoluta.
-                    */
 
                     try {
 
@@ -468,7 +496,7 @@ if (
                     } catch (error) {
 
                         console.error(
-                            "No se pudo cargar el video:",
+                            "Error cargando video:",
                             error
                         );
 
@@ -478,51 +506,56 @@ if (
 
 
                     /*
-                       Guardamos la tarjeta activa.
+                       Guardamos cuál proyecto
+                       estamos reproduciendo.
                     */
 
                     activeProjectCard = card;
+                    activePlayButton = button;
 
 
                     /*
-                       Ocultamos el botón Play
-                       que queda detrás del modal.
+                       OCULTAMOS DIRECTAMENTE
+                       EL BOTÓN PLAY.
                     */
 
-                    card.classList.add(
-                        "video-open"
+                    hideProjectPlay(
+                        card,
+                        button
                     );
 
 
                     /*
-                       Detenemos el preview.
+                       Detenemos el preview
+                       de la tarjeta.
                     */
 
                     video.pause();
 
 
                     /*
-                       Preparamos el video del modal.
+                       Limpiamos el video anterior.
                     */
 
                     modalVideo.pause();
 
-                    modalVideo.removeAttribute(
-                        "src"
-                    );
+                    modalVideo.removeAttribute("src");
 
                     modalVideo.load();
 
-                    modalVideo.src =
-                        videoSrc;
+
+                    /*
+                       Cargamos el nuevo video.
+                    */
+
+                    modalVideo.src = videoSrc;
 
 
                     /*
-                       El modal sí tiene audio.
+                       AUDIO ACTIVADO.
                     */
 
                     modalVideo.muted = false;
-
                     modalVideo.volume = 1;
 
                     modalVideo.playsInline = true;
@@ -538,57 +571,45 @@ if (
 
 
                     /*
-                       Abrimos modal.
+                       Mostramos modal.
                     */
 
-                    modal.classList.add(
-                        "active"
-                    );
+                    modal.classList.add("active");
 
 
                     /*
-                       MUY IMPORTANTE:
-
                        NO bloqueamos el scroll.
-
-                       La barra lateral seguirá
-                       estando disponible.
                     */
 
                     document.body.style.overflow = "";
-
                     document.documentElement.style.overflow = "";
 
 
                     /*
-                       Empezamos desde el principio.
+                       Empezar desde 0.
                     */
 
                     modalVideo.currentTime = 0;
 
 
                     /*
-                       Reproducimos con audio.
+                       Reproducir.
                     */
 
                     const playPromise =
                         modalVideo.play();
 
 
-                    if (
-                        playPromise !== undefined
-                    ) {
+                    if (playPromise !== undefined) {
 
-                        playPromise.catch(
-                            error => {
+                        playPromise.catch(error => {
 
-                                console.log(
-                                    "El navegador requiere interacción para reproducir con audio.",
-                                    error
-                                );
+                            console.log(
+                                "El navegador necesita interacción para reproducir con sonido.",
+                                error
+                            );
 
-                            }
-                        );
+                        });
 
                     }
 
@@ -607,7 +628,15 @@ if (
 
         modalClose.addEventListener(
             "click",
-            closeModal
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                closeModal();
+
+            }
         );
 
     }
@@ -622,7 +651,22 @@ if (
 
         modalBackground.addEventListener(
             "click",
-            closeModal
+            event => {
+
+                /*
+                   Solo cerrar si se hizo clic
+                   directamente en el fondo.
+                */
+
+                if (
+                    event.target === modalBackground
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
         );
 
     }
@@ -649,9 +693,159 @@ if (
         }
     );
 
+
+
+    /* =================================================
+       SI EL USUARIO HACE SCROLL
+       CERRAMOS EL VIDEO
+    ================================================= */
+
+    let scrollTimeout = null;
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (
+                !modal.classList.contains("active")
+            ) return;
+
+
+            /*
+               Cerramos el modal al comenzar
+               a desplazarse por el portafolio.
+            */
+
+            if (!scrollTimeout) {
+
+                scrollTimeout =
+                    setTimeout(() => {
+
+                        closeModal();
+
+                        scrollTimeout = null;
+
+                    }, 20);
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+
+    /* =================================================
+       RUEDA DEL MOUSE
+       PERMITE SEGUIR BAJANDO
+    ================================================= */
+
+    window.addEventListener(
+        "wheel",
+        event => {
+
+            if (
+                !modal.classList.contains("active")
+            ) return;
+
+
+            /*
+               Cerramos el video inmediatamente
+               al intentar desplazarse.
+            */
+
+            closeModal();
+
+        },
+        {
+            passive: true,
+            capture: true
+        }
+    );
+
+
+
+    /* =================================================
+       TOUCH / MÓVIL
+    ================================================= */
+
+    let touchStartY = 0;
+
+
+    window.addEventListener(
+        "touchstart",
+        event => {
+
+            if (
+                !modal.classList.contains("active")
+            ) return;
+
+
+            touchStartY =
+                event.touches[0].clientY;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    window.addEventListener(
+        "touchmove",
+        event => {
+
+            if (
+                !modal.classList.contains("active")
+            ) return;
+
+
+            const currentY =
+                event.touches[0].clientY;
+
+
+            const difference =
+                Math.abs(
+                    currentY - touchStartY
+                );
+
+
+            if (difference > 10) {
+
+                closeModal();
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+
+    /* =================================================
+       CUANDO TERMINA EL VIDEO
+    ================================================= */
+
+    modalVideo.addEventListener(
+        "ended",
+        () => {
+
+            /*
+               El modal permanece abierto,
+               pero el video queda detenido.
+            */
+
+            modalVideo.pause();
+
+        }
+    );
+
 }
-
-
 
     /* =====================================================
        CUSTOM CURSOR

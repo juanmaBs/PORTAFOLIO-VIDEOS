@@ -1164,4 +1164,41 @@ if (modal && modalVideo) {
         "page-loaded"
     );
 
+    /* =====================================================
+   CONTACT BUTTON
+===================================================== */
+
+const contactTrigger =
+    document.getElementById("contactTrigger");
+
+const contactOptions =
+    document.getElementById("contactOptions");
+
+if (contactTrigger && contactOptions) {
+
+    contactTrigger.addEventListener("click", (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        contactOptions.classList.toggle("active");
+
+    });
+
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            !contactOptions.contains(event.target) &&
+            !contactTrigger.contains(event.target)
+        ) {
+
+            contactOptions.classList.remove("active");
+
+        }
+
+    });
+
+}
+
 });

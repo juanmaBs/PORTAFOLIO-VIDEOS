@@ -328,365 +328,328 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       VIDEO MODAL
-    ===================================================== */
+   VIDEO MODAL
+===================================================== */
 
-    const modal =
-        document.getElementById(
-            "videoModal"
+const modal =
+    document.getElementById("videoModal");
+
+const modalVideo =
+    document.getElementById("modalVideo");
+
+const modalClose =
+    document.getElementById("modalClose");
+
+const modalBackground =
+    document.querySelector(".modal-background");
+
+let activeProjectCard = null;
+
+
+/* =====================================================
+   CERRAR MODAL
+===================================================== */
+
+function closeModal() {
+
+    if (!modal || !modalVideo) return;
+
+    modal.classList.remove("active");
+
+    modalVideo.pause();
+
+    modalVideo.removeAttribute("src");
+
+    modalVideo.load();
+
+    /*
+       IMPORTANTE:
+       NO usamos overflow:hidden.
+
+       De esta manera la barra de desplazamiento
+       de la página permanece visible.
+    */
+
+    document.body.style.overflow = "";
+
+    document.documentElement.style.overflow = "";
+
+
+    /*
+       Volvemos a mostrar el botón Play
+       de la tarjeta original.
+    */
+
+    if (activeProjectCard) {
+
+        activeProjectCard.classList.remove(
+            "video-open"
         );
 
-
-    const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
-
-
-    const modalClose =
-        document.getElementById(
-            "modalClose"
-        );
-
-
-    const modalBackground =
-        document.querySelector(
-            ".modal-background"
-        );
-
-
-
-    /* =====================================================
-       CERRAR MODAL
-    ===================================================== */
-
-    function closeModal() {
-
-        if (
-            !modal ||
-            !modalVideo
-        ) return;
-
-
-        modal.classList.remove(
-            "active"
-        );
-
-
-        modalVideo.pause();
-
-
-        modalVideo.removeAttribute(
-            "src"
-        );
-
-
-        modalVideo.load();
-
-
-        /*
-           Restauramos el scroll.
-        */
-
-        document.body.style.overflow =
-            "";
-
-
-        /*
-           Restauramos también el estado
-           del HTML por si el CSS utiliza
-           overflow.
-        */
-
-        document.documentElement.style.overflow =
-            "";
+        activeProjectCard = null;
 
     }
 
-
-
-    /* =====================================================
-       ABRIR MODAL
-    ===================================================== */
-
-    if (
-        modal &&
-        modalVideo
-    ) {
-
-
-        document
-            .querySelectorAll(
-                ".play-project"
-            )
-            .forEach(button => {
-
-
-                button.addEventListener(
-                    "click",
-                    event => {
-
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-
-                        const card =
-                            button.closest(
-                                ".project-card"
-                            );
-
-
-                        if (!card) return;
-
-
-                        const video =
-                            card.querySelector(
-                                ".portfolio-video"
-                            );
-
-
-                        if (!video) return;
-
-
-                        const source =
-                            video.querySelector(
-                                "source"
-                            );
-
-
-                        if (!source) return;
+}
 
 
 
-                        /* =================================
-                           OBTENER VIDEO
-                        ================================= */
+/* =====================================================
+   ABRIR MODAL
+===================================================== */
+
+if (
+    modal &&
+    modalVideo
+) {
+
+    document
+        .querySelectorAll(".play-project")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
 
 
-                        let videoSrc =
-                            source.getAttribute(
-                                "src"
-                            );
+                    const card =
+                        button.closest(
+                            ".project-card"
+                        );
 
 
-                        if (!videoSrc) return;
+                    if (!card) return;
 
 
-                        /*
-                           Convertimos la ruta
-                           correctamente.
-                        */
-
-                        try {
-
-                            videoSrc =
-                                new URL(
-                                    videoSrc,
-                                    window.location.href
-                                ).href;
-
-                        } catch (error) {
-
-                            console.error(
-                                "No se pudo cargar el video:",
-                                error
-                            );
-
-                            return;
-
-                        }
+                    const video =
+                        card.querySelector(
+                            ".portfolio-video"
+                        );
 
 
-
-                        /* =================================
-                           PREPARAR MODAL
-                        ================================= */
+                    if (!video) return;
 
 
-                        modalVideo.pause();
+                    const source =
+                        video.querySelector(
+                            "source"
+                        );
 
 
-                        modalVideo.removeAttribute(
+                    if (!source) return;
+
+
+                    let videoSrc =
+                        source.getAttribute(
                             "src"
                         );
 
 
-                        modalVideo.load();
+                    if (!videoSrc) return;
 
 
-                        modalVideo.src =
-                            videoSrc;
+                    /*
+                       Convertimos la ruta del video
+                       en una URL absoluta.
+                    */
 
+                    try {
 
-                        /*
-                           MUY IMPORTANTE:
+                        videoSrc =
+                            new URL(
+                                videoSrc,
+                                window.location.href
+                            ).href;
 
-                           El modal NO está muted.
+                    } catch (error) {
 
-                           Por eso el usuario escuchará
-                           el audio original del reel.
-                        */
-
-                        modalVideo.muted = false;
-
-                        modalVideo.volume = 1;
-
-                        modalVideo.playsInline = true;
-
-
-                        modalVideo.setAttribute(
-                            "playsinline",
-                            ""
+                        console.error(
+                            "No se pudo cargar el video:",
+                            error
                         );
 
-
-                        modalVideo.removeAttribute(
-                            "muted"
-                        );
-
-
-                        /*
-                           Abrimos modal.
-                        */
-
-                        modal.classList.add(
-                            "active"
-                        );
-
-
-                        /*
-                           Bloqueamos temporalmente
-                           el scroll del body mientras
-                           el modal está abierto.
-                        */
-
-                        document.body.style.overflow =
-                            "hidden";
-
-
-                        document.documentElement.style.overflow =
-                            "hidden";
-
-
-                        /*
-                           Empezamos desde el principio.
-                        */
-
-                        modalVideo.currentTime = 0;
-
-
-                        /*
-                           Intentamos reproducir
-                           CON AUDIO.
-                        */
-
-                        const playPromise =
-                            modalVideo.play();
-
-
-                        if (
-                            playPromise !== undefined
-                        ) {
-
-                            playPromise.catch(
-                                error => {
-
-                                    /*
-                                       Algunos navegadores
-                                       pueden bloquear audio
-                                       automático.
-
-                                       En ese caso el usuario
-                                       puede pulsar Play en
-                                       los controles del video.
-                                    */
-
-                                    console.log(
-                                        "El navegador requiere interacción para reproducir con audio.",
-                                        error
-                                    );
-
-                                }
-                            );
-
-                        }
+                        return;
 
                     }
-                );
-
-            });
 
 
-        /* =================================================
-           BOTÓN CERRAR
-        ================================================= */
+                    /*
+                       Guardamos la tarjeta activa.
+                    */
 
-        if (modalClose) {
-
-            modalClose.addEventListener(
-                "click",
-                closeModal
-            );
-
-        }
+                    activeProjectCard = card;
 
 
-        /* =================================================
-           FONDO DEL MODAL
-        ================================================= */
+                    /*
+                       Ocultamos el botón Play
+                       que queda detrás del modal.
+                    */
 
-        if (modalBackground) {
-
-            modalBackground.addEventListener(
-                "click",
-                closeModal
-            );
-
-        }
+                    card.classList.add(
+                        "video-open"
+                    );
 
 
-        /* =================================================
-           ESC PARA CERRAR
-        ================================================= */
+                    /*
+                       Detenemos el preview.
+                    */
 
-        document.addEventListener(
-            "keydown",
-            event => {
+                    video.pause();
 
-                if (
-                    event.key === "Escape" &&
-                    modal.classList.contains(
+
+                    /*
+                       Preparamos el video del modal.
+                    */
+
+                    modalVideo.pause();
+
+                    modalVideo.removeAttribute(
+                        "src"
+                    );
+
+                    modalVideo.load();
+
+                    modalVideo.src =
+                        videoSrc;
+
+
+                    /*
+                       El modal sí tiene audio.
+                    */
+
+                    modalVideo.muted = false;
+
+                    modalVideo.volume = 1;
+
+                    modalVideo.playsInline = true;
+
+                    modalVideo.setAttribute(
+                        "playsinline",
+                        ""
+                    );
+
+                    modalVideo.removeAttribute(
+                        "muted"
+                    );
+
+
+                    /*
+                       Abrimos modal.
+                    */
+
+                    modal.classList.add(
                         "active"
-                    )
-                ) {
+                    );
 
-                    closeModal();
+
+                    /*
+                       MUY IMPORTANTE:
+
+                       NO bloqueamos el scroll.
+
+                       La barra lateral seguirá
+                       estando disponible.
+                    */
+
+                    document.body.style.overflow = "";
+
+                    document.documentElement.style.overflow = "";
+
+
+                    /*
+                       Empezamos desde el principio.
+                    */
+
+                    modalVideo.currentTime = 0;
+
+
+                    /*
+                       Reproducimos con audio.
+                    */
+
+                    const playPromise =
+                        modalVideo.play();
+
+
+                    if (
+                        playPromise !== undefined
+                    ) {
+
+                        playPromise.catch(
+                            error => {
+
+                                console.log(
+                                    "El navegador requiere interacción para reproducir con audio.",
+                                    error
+                                );
+
+                            }
+                        );
+
+                    }
 
                 }
+            );
 
-            }
-        );
+        });
 
 
-        /* =================================================
-           CUANDO TERMINA EL VIDEO
-        ================================================= */
 
-        modalVideo.addEventListener(
-            "ended",
-            () => {
+    /* =================================================
+       BOTÓN CERRAR
+    ================================================= */
 
-                /*
-                   No cerramos el modal.
-                   El usuario puede volver a darle
-                   Play si quiere.
-                */
+    if (modalClose) {
 
-            }
+        modalClose.addEventListener(
+            "click",
+            closeModal
         );
 
     }
+
+
+
+    /* =================================================
+       FONDO DEL MODAL
+    ================================================= */
+
+    if (modalBackground) {
+
+        modalBackground.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+
+    /* =================================================
+       ESC
+    ================================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains("active")
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+}
 
 
 

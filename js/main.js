@@ -971,3 +971,11 @@ if (
     );
 
 });
+/* =====================================================
+   OCULTAR BOTÓN PLAY DEL PROYECTO CUANDO ESTÁ ABIERTO
+===================================================== */
+
+.project-card.video-open .play-project {
+    opacity: 0;
+    pointer-events: none;
+}

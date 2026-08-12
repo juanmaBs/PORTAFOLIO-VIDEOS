@@ -592,107 +592,287 @@ a {
 }
 
 
-/* =========================
-   PROJECTS
-   ========================= */
-
-.projects-heading {
-    margin-bottom: 55px;
-}
+/* =========================================================
+   PROYECTOS — VIDEOS VERTICALES 9:16
+   ========================================================= */
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 35px 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 90px 40px;
+    align-items: start;
 }
 
-.project-large {
-    grid-row: span 2;
+/* Tarjeta */
+.project-card {
+    min-width: 0;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
-.project-wide {
-    grid-column: span 2;
-}
-
+/* Contenedor del video */
 .project-media {
     position: relative;
-    overflow: hidden;
-    background: #111;
-    aspect-ratio: 16 / 10;
-}
-
-.project-large .project-media {
-    aspect-ratio: 4 / 5;
-}
-
-.project-wide .project-media {
-    aspect-ratio: 21 / 9;
-}
-
-.project-media video {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto !important;
+
+    /* Quitamos el formato horizontal anterior */
+    aspect-ratio: auto !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: visible !important;
+    padding: 0 !important;
+}
+
+/* VIDEO 9:16 */
+.project-media .portfolio-video {
     display: block;
-    transition: .7s;
+
+    width: min(100%, 300px) !important;
+    height: auto !important;
+
+    aspect-ratio: 9 / 16 !important;
+
+    object-fit: cover;
+
+    background: #000;
+
+    border-radius: 24px !important;
+
+    overflow: hidden;
+
+    border: none !important;
+    outline: none !important;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
-.project-card:hover video {
-    transform: scale(1.06);
+/* Hover */
+.project-card:hover .portfolio-video {
+    transform: translateY(-6px) scale(1.015);
+
+    box-shadow:
+        0 35px 80px rgba(0, 0, 0, 0.55);
 }
 
+/* Overlay */
 .project-overlay {
     position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 20px;
-    background: linear-gradient(transparent 50%, rgba(0,0,0,.8));
-    opacity: 0;
-    transition: .4s;
-}
 
-.project-card:hover .project-overlay {
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+
+    border-radius: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    background: transparent;
+
     opacity: 1;
 }
 
+/* Etiqueta superior */
 .project-overlay span {
+    position: absolute;
+
+    top: 18px;
+    left: 18px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    color: #fff;
+
     font-size: 10px;
-    letter-spacing: 2px;
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+
+    backdrop-filter: blur(10px);
 }
 
-.project-overlay i {
-    width: 42px;
-    height: 42px;
+/* Botón play */
+.play-project {
+    width: 64px;
+    height: 64px;
+
     border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: white;
-    color: #000;
-}
 
-.project-info {
+    border: 1px solid rgba(255,255,255,0.25);
+
+    background: rgba(0,0,0,0.65);
+
+    color: #fff;
+
     display: flex;
-    justify-content: space-between;
-    padding-top: 15px;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
 }
 
-.project-info span {
-    color: #666;
-    font-size: 9px;
-    letter-spacing: 1px;
+.play-project:hover {
+    transform: scale(1.1);
+
+    background: rgba(170,255,0,0.95);
+
+    color: #050505;
+}
+
+/* Cuando el video está reproduciéndose */
+.project-card.is-playing .project-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.project-card.is-playing .portfolio-video {
+    transform: none;
+}
+
+/* Información */
+.project-info {
+    width: min(100%, 300px);
+
+    margin: 20px auto 0;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
 }
 
 .project-info h3 {
-    font-family: "Space Grotesk";
-    font-size: 22px;
-    margin-top: 6px;
+    margin: 6px 0 0;
+
+    font-size: 20px;
+
+    line-height: 1.15;
+}
+
+.project-info span {
+    font-size: 9px;
+
+    letter-spacing: 0.12em;
+
+    color: rgba(255,255,255,0.45);
 }
 
 .project-info p {
-    color: var(--accent);
-    font-size: 10px;
+    margin: 0;
+
+    color: #b6ff38;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ELIMINAR FONDOS BLANCOS ANTIGUOS
+   ========================================================= */
+
+.project-media,
+.project-card,
+.project-card .project-media,
+.project-card .video-wrapper {
+    background-color: transparent !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 70px;
+    }
+
+    .project-media .portfolio-video {
+        width: min(100%, 320px) !important;
+    }
+
+    .project-overlay {
+        width: min(100%, 320px);
+    }
+
+    .project-info {
+        width: min(100%, 320px);
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .projects-grid {
+        gap: 55px;
+    }
+
+    .project-media .portfolio-video {
+        width: min(82vw, 300px) !important;
+
+        border-radius: 20px !important;
+    }
+
+    .project-overlay {
+        width: min(82vw, 300px);
+
+        border-radius: 20px;
+    }
+
+    .project-info {
+        width: min(82vw, 300px);
+    }
+
+    .project-info h3 {
+        font-size: 18px;
+    }
+
+    .play-project {
+        width: 56px;
+        height: 56px;
+    }
 }
 
 

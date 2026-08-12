@@ -1157,6 +1157,43 @@ if (modal && modalVideo) {
 
 
     /* =====================================================
+       CONTACTO — WHATSAPP / CORREO
+    ===================================================== */
+    const contactTrigger = document.getElementById("contactTrigger");
+    const contactMenu = document.getElementById("contactMenu");
+
+    if (contactTrigger && contactMenu) {
+        const closeContactMenu = () => {
+            contactMenu.classList.remove("active");
+            contactMenu.setAttribute("aria-hidden", "true");
+            contactTrigger.setAttribute("aria-expanded", "false");
+        };
+
+        contactTrigger.addEventListener("click", event => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const isOpen = contactMenu.classList.toggle("active");
+            contactMenu.setAttribute("aria-hidden", String(!isOpen));
+            contactTrigger.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        contactMenu.addEventListener("click", event => {
+            event.stopPropagation();
+        });
+
+        document.addEventListener("click", event => {
+            if (!contactMenu.contains(event.target) && !contactTrigger.contains(event.target)) {
+                closeContactMenu();
+            }
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") closeContactMenu();
+        });
+    }
+
+    /* =====================================================
        PAGE LOADED
     ===================================================== */
 
@@ -1165,3 +1202,4 @@ if (modal && modalVideo) {
     );
 
 });
+

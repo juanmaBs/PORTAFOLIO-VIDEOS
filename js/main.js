@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 entries.forEach(entry => {
 
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add("visible");
-
-                        observer.unobserve(entry.target);
+                    if (!entry.isIntersecting) {
+                        return;
                     }
+
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
 
                 });
 
@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         requestAnimationFrame(tick);
+
     };
 
 
@@ -142,7 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       VIDEOS DE PROYECTOS
+       VIDEOS DEL PORTAFOLIO
+       
+       IMPORTANTE:
+       - NO MODIFICAMOS EL SCROLL
+       - NO USAMOS MODAL
+       - NO USAMOS OVERFLOW HIDDEN
+       - SOLO EL BOTÓN CONTROLA EL VIDEO
        ========================================================= */
 
     const projectCards =
@@ -152,28 +159,56 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".portfolio-video");
 
 
-    /*
-       Configuración general
-    */
-
     videos.forEach(video => {
 
         video.muted = true;
-
         video.playsInline = true;
 
         video.setAttribute("muted", "");
-
         video.setAttribute("playsinline", "");
 
         video.preload = "metadata";
+
+        /*
+         * Evitamos que el video interfiera
+         * con el scroll de la página.
+         */
+        video.style.touchAction = "pan-y";
 
     });
 
 
 
     /* =========================================================
-       PLAY INLINE
+       FUNCIÓN PARA PAUSAR TODOS LOS VIDEOS
+       ========================================================= */
+
+    const pauseAllVideos = exceptVideo => {
+
+        videos.forEach(video => {
+
+            if (video === exceptVideo) {
+                return;
+            }
+
+            video.pause();
+            video.currentTime = 0;
+
+            const card =
+                video.closest(".project-card");
+
+            if (card) {
+                card.classList.remove("is-playing");
+            }
+
+        });
+
+    };
+
+
+
+    /* =========================================================
+       BOTONES PLAY
        ========================================================= */
 
     projectCards.forEach(card => {
@@ -185,60 +220,68 @@ document.addEventListener("DOMContentLoaded", () => {
             card.querySelector(".play-project");
 
 
-        if (!video) {
+        if (!video || !playButton) {
             return;
         }
 
 
-        /*
-           Botón PLAY
-        */
+        playButton.addEventListener("click", event => {
 
-        if (playButton) {
-
-            playButton.addEventListener("click", event => {
-
-                event.preventDefault();
-
-                event.stopPropagation();
+            /*
+             * IMPORTANTE:
+             * El botón no debe provocar ninguna navegación.
+             */
+            event.preventDefault();
+            event.stopPropagation();
 
 
-                /*
-                   Pausar otros videos
-                */
+            /*
+             * Si este video ya está reproduciéndose,
+             * lo pausamos.
+             */
+            if (!video.paused) {
 
-                videos.forEach(otherVideo => {
+                video.pause();
 
-                    if (otherVideo !== video) {
+                card.classList.remove("is-playing");
 
-                        otherVideo.pause();
+                return;
 
-                        otherVideo.currentTime = 0;
-
-                        const otherCard =
-                            otherVideo.closest(".project-card");
-
-                        otherCard?.classList.remove(
-                            "is-playing"
-                        );
-
-                    }
-
-                });
+            }
 
 
-                /*
-                   Reproducir este video
-                */
+            /*
+             * Primero pausamos cualquier otro video.
+             */
+            pauseAllVideos(video);
 
-                video.currentTime = 0;
 
-                video.play()
+            /*
+             * Aseguramos que el scroll de la página
+             * permanezca completamente habilitado.
+             */
+            document.documentElement.style.overflowY = "auto";
+            document.body.style.overflowY = "auto";
+
+
+            /*
+             * Comenzamos desde el principio.
+             */
+            video.currentTime = 0;
+
+
+            /*
+             * Reproducimos el video.
+             */
+            const playPromise = video.play();
+
+
+            if (playPromise !== undefined) {
+
+                playPromise
                     .then(() => {
 
-                        card.classList.add(
-                            "is-playing"
-                        );
+                        card.classList.add("is-playing");
 
                     })
                     .catch(error => {
@@ -250,112 +293,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     });
 
-            });
+            }
 
-        }
+        });
 
 
-        /*
-           Cuando termina el video
-        */
+
+        /* =====================================================
+           CUANDO TERMINA EL VIDEO
+           ===================================================== */
 
         video.addEventListener("ended", () => {
 
-            card.classList.remove(
-                "is-playing"
-            );
+            card.classList.remove("is-playing");
+
+            video.pause();
 
             video.currentTime = 0;
 
         });
 
 
-        /*
-           Si el usuario hace clic directamente
-           sobre el video mientras está reproduciendo
-        */
 
-        video.addEventListener("click", () => {
+        /* =====================================================
+           SI EL VIDEO SE PAUSA
+           ===================================================== */
 
-            if (!video.paused) {
+        video.addEventListener("pause", () => {
 
-                video.pause();
-
-                card.classList.remove(
-                    "is-playing"
-                );
-
-            } else {
-
-                video.play()
-                    .then(() => {
-
-                        card.classList.add(
-                            "is-playing"
-                        );
-
-                    })
-                    .catch(() => {});
-
-            }
+            card.classList.remove("is-playing");
 
         });
 
 
-    });
 
+        /* =====================================================
+           SI EL VIDEO EMPIEZA
+           ===================================================== */
 
+        video.addEventListener("play", () => {
 
-    /* =========================================================
-       AUTOPLAY EN DESKTOP AL PASAR EL MOUSE
-       ========================================================= */
-
-    projectCards.forEach(card => {
-
-        const video =
-            card.querySelector(".portfolio-video");
-
-        if (!video) {
-            return;
-        }
-
-
-        card.addEventListener("mouseenter", () => {
+            card.classList.add("is-playing");
 
             /*
-               Solo autoplay si no se está reproduciendo
-               manualmente.
-            */
-
-            if (video.paused) {
-
-                video.currentTime = 0;
-
-                video.play()
-                    .then(() => {
-
-                        card.classList.add(
-                            "is-playing"
-                        );
-
-                    })
-                    .catch(() => {});
-
-            }
-
-        });
-
-
-        card.addEventListener("mouseleave", () => {
-
-            /*
-               No detenemos el video si el usuario
-               ya lo inició manualmente.
-            */
-
-            if (!card.matches(":hover")) {
-                return;
-            }
+             * Garantizamos nuevamente que
+             * el scroll nunca se bloquee.
+             */
+            document.documentElement.style.overflowY = "auto";
+            document.body.style.overflowY = "auto";
 
         });
 
@@ -364,68 +349,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
-       AUTOPLAY EN MOBILE
+       MUY IMPORTANTE:
+       NO AUTOPLAY AL PASAR EL MOUSE
+       
+       Antes teníamos mouseenter sobre las tarjetas.
+       Lo eliminamos porque podía generar conflictos
+       con el botón Play.
        ========================================================= */
-
-    if ("IntersectionObserver" in window) {
-
-        const videoObserver =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        const video =
-                            entry.target;
-
-                        const card =
-                            video.closest(
-                                ".project-card"
-                            );
-
-
-                        if (
-                            entry.isIntersecting &&
-                            window.innerWidth <= 900
-                        ) {
-
-                            /*
-                               No forzamos autoplay.
-                               Solo dejamos preparado el video.
-                            */
-
-                            video.pause();
-
-                        } else if (
-                            !entry.isIntersecting
-                        ) {
-
-                            video.pause();
-
-                            video.currentTime = 0;
-
-                            card?.classList.remove(
-                                "is-playing"
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.35
-                }
-            );
-
-
-        videos.forEach(video => {
-
-            videoObserver.observe(video);
-
-        });
-
-    }
 
 
 
@@ -458,9 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event => {
 
                 mouseX = event.clientX;
-
                 mouseY = event.clientY;
-
 
                 cursor.style.left =
                     `${mouseX}px`;
@@ -674,9 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     const target =
-                        document.querySelector(
-                            href
-                        );
+                        document.querySelector(href);
 
 
                     if (!target) {
@@ -713,6 +639,21 @@ document.addEventListener("DOMContentLoaded", () => {
             "auto";
 
     }
+
+
+
+    /* =========================================================
+       GARANTIZAR SCROLL DE LA PÁGINA
+       ========================================================= */
+
+    /*
+     * Por seguridad eliminamos cualquier estado
+     * de bloqueo que haya quedado de una versión
+     * anterior del portafolio.
+     */
+
+    document.documentElement.style.overflowY = "auto";
+    document.body.style.overflowY = "auto";
 
 
 

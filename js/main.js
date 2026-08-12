@@ -1,96 +1,76 @@
-/* =========================================================
-   JUAN MANUEL BELLO — PORTFOLIO JS
-   ========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
     "use strict";
 
 
-    /* =====================================================
-       SCROLL REVEAL
-    ===================================================== */
+    /* =========================================================
+       REVEAL
+       ========================================================= */
 
-    const revealElements =
-        document.querySelectorAll(".reveal");
-
+    const revealElements = document.querySelectorAll(".reveal");
 
     if ("IntersectionObserver" in window) {
 
-        const revealObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
 
-                    entries.forEach(entry => {
+                entries.forEach(entry => {
 
-                        if (!entry.isIntersecting) return;
+                    if (entry.isIntersecting) {
 
                         entry.target.classList.add("visible");
 
                         observer.unobserve(entry.target);
+                    }
 
-                    });
+                });
 
-                },
-                {
-                    threshold: 0.06,
-                    rootMargin: "0px 0px -40px 0px"
-                }
-            );
-
+            },
+            {
+                threshold: 0.06,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
 
         revealElements.forEach(element => {
-
             revealObserver.observe(element);
-
         });
-
 
     } else {
 
         revealElements.forEach(element => {
-
             element.classList.add("visible");
-
         });
 
     }
 
 
-    /* Seguridad para evitar elementos invisibles */
-
     setTimeout(() => {
 
         revealElements.forEach(element => {
-
             element.classList.add("visible");
-
         });
 
     }, 2200);
 
 
 
-    /* =====================================================
-       COUNTERS
-    ===================================================== */
+    /* =========================================================
+       CONTADORES
+       ========================================================= */
 
-    const counters =
-        document.querySelectorAll(".counter");
+    const counters = document.querySelectorAll(".counter");
 
-
-    const animateCounter = (counter) => {
+    const animateCounter = counter => {
 
         const target =
             Number(counter.dataset.target) || 0;
 
         const duration = 1400;
 
-        const start =
-            performance.now();
+        const start = performance.now();
 
-
-        const tick = (now) => {
+        const tick = now => {
 
             const progress =
                 Math.min(
@@ -98,14 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     1
                 );
 
-
             const eased =
                 1 - Math.pow(1 - progress, 3);
 
-
             counter.textContent =
                 Math.floor(target * eased);
-
 
             if (progress < 1) {
 
@@ -113,16 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } else {
 
-                counter.textContent =
-                    target;
+                counter.textContent = target;
 
             }
 
         };
 
-
         requestAnimationFrame(tick);
-
     };
 
 
@@ -134,17 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     entries.forEach(entry => {
 
-                        if (!entry.isIntersecting) return;
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
 
+                        animateCounter(entry.target);
 
-                        animateCounter(
-                            entry.target
-                        );
-
-
-                        observer.unobserve(
-                            entry.target
-                        );
+                        observer.unobserve(entry.target);
 
                     });
 
@@ -154,13 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
-
         counters.forEach(counter => {
-
             counterObserver.observe(counter);
-
         });
-
 
     } else {
 
@@ -175,24 +141,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    /* =====================================================
-       PORTFOLIO VIDEOS
-    ===================================================== */
+    /* =========================================================
+       VIDEOS DE PROYECTOS
+       ========================================================= */
 
     const projectCards =
         document.querySelectorAll(".project-card");
-
 
     const videos =
         document.querySelectorAll(".portfolio-video");
 
 
     /*
-       Los videos de las tarjetas son previews.
-
-       IMPORTANTE:
-       Estos videos permanecen muted porque
-       los navegadores bloquean autoplay con sonido.
+       Configuración general
     */
 
     videos.forEach(video => {
@@ -201,80 +162,210 @@ document.addEventListener("DOMContentLoaded", () => {
 
         video.playsInline = true;
 
-        video.setAttribute(
-            "muted",
-            ""
-        );
+        video.setAttribute("muted", "");
 
-        video.setAttribute(
-            "playsinline",
-            ""
-        );
+        video.setAttribute("playsinline", "");
+
+        video.preload = "metadata";
 
     });
 
 
 
-    /* =====================================================
-       DESKTOP — HOVER PREVIEW
-    ===================================================== */
+    /* =========================================================
+       PLAY INLINE
+       ========================================================= */
 
     projectCards.forEach(card => {
 
         const video =
             card.querySelector(".portfolio-video");
 
+        const playButton =
+            card.querySelector(".play-project");
 
-        if (!video) return;
+
+        if (!video) {
+            return;
+        }
 
 
-        card.addEventListener(
-            "mouseenter",
-            () => {
+        /*
+           Botón PLAY
+        */
+
+        if (playButton) {
+
+            playButton.addEventListener("click", event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
 
                 /*
-                   Solo preview.
-                   Sin sonido.
+                   Pausar otros videos
                 */
 
-                video.muted = true;
+                videos.forEach(otherVideo => {
+
+                    if (otherVideo !== video) {
+
+                        otherVideo.pause();
+
+                        otherVideo.currentTime = 0;
+
+                        const otherCard =
+                            otherVideo.closest(".project-card");
+
+                        otherCard?.classList.remove(
+                            "is-playing"
+                        );
+
+                    }
+
+                });
+
+
+                /*
+                   Reproducir este video
+                */
 
                 video.currentTime = 0;
 
-                const playPromise =
-                    video.play();
+                video.play()
+                    .then(() => {
+
+                        card.classList.add(
+                            "is-playing"
+                        );
+
+                    })
+                    .catch(error => {
+
+                        console.log(
+                            "No se pudo reproducir el video:",
+                            error
+                        );
+
+                    });
+
+            });
+
+        }
 
 
-                if (
-                    playPromise !== undefined
-                ) {
+        /*
+           Cuando termina el video
+        */
 
-                    playPromise.catch(() => {});
+        video.addEventListener("ended", () => {
 
-                }
+            card.classList.remove(
+                "is-playing"
+            );
 
-            }
-        );
+            video.currentTime = 0;
+
+        });
 
 
-        card.addEventListener(
-            "mouseleave",
-            () => {
+        /*
+           Si el usuario hace clic directamente
+           sobre el video mientras está reproduciendo
+        */
+
+        video.addEventListener("click", () => {
+
+            if (!video.paused) {
 
                 video.pause();
 
-                video.currentTime = 0;
+                card.classList.remove(
+                    "is-playing"
+                );
+
+            } else {
+
+                video.play()
+                    .then(() => {
+
+                        card.classList.add(
+                            "is-playing"
+                        );
+
+                    })
+                    .catch(() => {});
 
             }
-        );
+
+        });
+
 
     });
 
 
 
-    /* =====================================================
-       MOBILE — AUTOPLAY PREVIEW
-    ===================================================== */
+    /* =========================================================
+       AUTOPLAY EN DESKTOP AL PASAR EL MOUSE
+       ========================================================= */
+
+    projectCards.forEach(card => {
+
+        const video =
+            card.querySelector(".portfolio-video");
+
+        if (!video) {
+            return;
+        }
+
+
+        card.addEventListener("mouseenter", () => {
+
+            /*
+               Solo autoplay si no se está reproduciendo
+               manualmente.
+            */
+
+            if (video.paused) {
+
+                video.currentTime = 0;
+
+                video.play()
+                    .then(() => {
+
+                        card.classList.add(
+                            "is-playing"
+                        );
+
+                    })
+                    .catch(() => {});
+
+            }
+
+        });
+
+
+        card.addEventListener("mouseleave", () => {
+
+            /*
+               No detenemos el video si el usuario
+               ya lo inició manualmente.
+            */
+
+            if (!card.matches(":hover")) {
+                return;
+            }
+
+        });
+
+    });
+
+
+
+    /* =========================================================
+       AUTOPLAY EN MOBILE
+       ========================================================= */
 
     if ("IntersectionObserver" in window) {
 
@@ -287,6 +378,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         const video =
                             entry.target;
 
+                        const card =
+                            video.closest(
+                                ".project-card"
+                            );
+
 
                         if (
                             entry.isIntersecting &&
@@ -294,17 +390,23 @@ document.addEventListener("DOMContentLoaded", () => {
                         ) {
 
                             /*
-                               Preview móvil sin sonido.
+                               No forzamos autoplay.
+                               Solo dejamos preparado el video.
                             */
 
-                            video.muted = true;
+                            video.pause();
 
-                            video.play()
-                                .catch(() => {});
-
-                        } else {
+                        } else if (
+                            !entry.isIntersecting
+                        ) {
 
                             video.pause();
+
+                            video.currentTime = 0;
+
+                            card?.classList.remove(
+                                "is-playing"
+                            );
 
                         }
 
@@ -327,556 +429,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    /* =====================================================
-   VIDEO MODAL
-===================================================== */
-
-const modal = document.getElementById("videoModal");
-const modalVideo = document.getElementById("modalVideo");
-const modalClose = document.getElementById("modalClose");
-const modalBackground = document.querySelector(".modal-background");
-
-let activeProjectCard = null;
-let activePlayButton = null;
-
-
-/* =====================================================
-   OCULTAR BOTÓN PLAY
-===================================================== */
-
-function hideProjectPlay(card, button) {
-
-    if (button) {
-
-        button.style.opacity = "0";
-        button.style.visibility = "hidden";
-        button.style.pointerEvents = "none";
-
-    }
-
-    if (card) {
-
-        card.classList.add("video-playing");
-
-    }
-
-}
-
-
-/* =====================================================
-   MOSTRAR BOTÓN PLAY
-===================================================== */
-
-function showProjectPlay() {
-
-    if (activePlayButton) {
-
-        activePlayButton.style.opacity = "";
-        activePlayButton.style.visibility = "";
-        activePlayButton.style.pointerEvents = "";
-
-    }
-
-    if (activeProjectCard) {
-
-        activeProjectCard.classList.remove(
-            "video-playing"
-        );
-
-    }
-
-    activePlayButton = null;
-    activeProjectCard = null;
-
-}
-
-
-/* =====================================================
-   CERRAR MODAL
-===================================================== */
-
-function closeModal() {
-
-    if (!modal || !modalVideo) return;
-
-
-    /* Detener completamente el video */
-
-    modalVideo.pause();
-
-    modalVideo.currentTime = 0;
-
-
-    /* Quitar fuente */
-
-    modalVideo.removeAttribute("src");
-
-    modalVideo.load();
-
-
-    /* Quitar modal */
-
-    modal.classList.remove("active");
-
-
-    /*
-       MUY IMPORTANTE:
-
-       NO usamos overflow:hidden.
-       La página conserva su scrollbar.
-    */
-
-    document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
-
-
-    /* Restaurar botón */
-
-    showProjectPlay();
-
-}
-
-
-/* =====================================================
-   ABRIR VIDEO
-===================================================== */
-
-if (modal && modalVideo) {
-
-    document
-        .querySelectorAll(".play-project")
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-                    event.stopPropagation();
-
-
-                    const card =
-                        button.closest(".project-card");
-
-
-                    if (!card) return;
-
-
-                    const video =
-                        card.querySelector(
-                            ".portfolio-video"
-                        );
-
-
-                    if (!video) return;
-
-
-                    const source =
-                        video.querySelector("source");
-
-
-                    if (!source) return;
-
-
-                    let videoSrc =
-                        source.getAttribute("src");
-
-
-                    if (!videoSrc) return;
-
-
-                    try {
-
-                        videoSrc =
-                            new URL(
-                                videoSrc,
-                                window.location.href
-                            ).href;
-
-                    } catch (error) {
-
-                        console.error(
-                            "Error cargando video:",
-                            error
-                        );
-
-                        return;
-
-                    }
-
-
-                    /*
-                       Guardamos cuál proyecto
-                       estamos reproduciendo.
-                    */
-
-                    activeProjectCard = card;
-                    activePlayButton = button;
-
-
-                    /*
-                       OCULTAMOS DIRECTAMENTE
-                       EL BOTÓN PLAY.
-                    */
-
-                    hideProjectPlay(
-                        card,
-                        button
-                    );
-
-
-                    /*
-                       Detenemos el preview
-                       de la tarjeta.
-                    */
-
-                    video.pause();
-
-
-                    /*
-                       Limpiamos el video anterior.
-                    */
-
-                    modalVideo.pause();
-
-                    modalVideo.removeAttribute("src");
-
-                    modalVideo.load();
-
-
-                    /*
-                       Cargamos el nuevo video.
-                    */
-
-                    modalVideo.src = videoSrc;
-
-
-                    /*
-                       AUDIO ACTIVADO.
-                    */
-
-                    modalVideo.muted = false;
-                    modalVideo.volume = 1;
-
-                    modalVideo.playsInline = true;
-
-                    modalVideo.setAttribute(
-                        "playsinline",
-                        ""
-                    );
-
-                    modalVideo.removeAttribute(
-                        "muted"
-                    );
-
-
-                    /*
-                       Mostramos modal.
-                    */
-
-                    modal.classList.add("active");
-
-
-                    /*
-                       NO bloqueamos el scroll.
-                    */
-
-                    document.body.style.overflow = "";
-                    document.documentElement.style.overflow = "";
-
-
-                    /*
-                       Empezar desde 0.
-                    */
-
-                    modalVideo.currentTime = 0;
-
-
-                    /*
-                       Reproducir.
-                    */
-
-                    const playPromise =
-                        modalVideo.play();
-
-
-                    if (playPromise !== undefined) {
-
-                        playPromise.catch(error => {
-
-                            console.log(
-                                "El navegador necesita interacción para reproducir con sonido.",
-                                error
-                            );
-
-                        });
-
-                    }
-
-                }
-            );
-
-        });
-
-
-
-    /* =================================================
-       BOTÓN CERRAR
-    ================================================= */
-
-    if (modalClose) {
-
-        modalClose.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                closeModal();
-
-            }
-        );
-
-    }
-
-
-
-    /* =================================================
-       FONDO DEL MODAL
-    ================================================= */
-
-    if (modalBackground) {
-
-        modalBackground.addEventListener(
-            "click",
-            event => {
-
-                /*
-                   Solo cerrar si se hizo clic
-                   directamente en el fondo.
-                */
-
-                if (
-                    event.target === modalBackground
-                ) {
-
-                    closeModal();
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    /* =================================================
-       ESC
-    ================================================= */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape" &&
-                modal.classList.contains("active")
-            ) {
-
-                closeModal();
-
-            }
-
-        }
-    );
-
-
-
-    /* =================================================
-       SI EL USUARIO HACE SCROLL
-       CERRAMOS EL VIDEO
-    ================================================= */
-
-    let scrollTimeout = null;
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            if (
-                !modal.classList.contains("active")
-            ) return;
-
-
-            /*
-               Cerramos el modal al comenzar
-               a desplazarse por el portafolio.
-            */
-
-            if (!scrollTimeout) {
-
-                scrollTimeout =
-                    setTimeout(() => {
-
-                        closeModal();
-
-                        scrollTimeout = null;
-
-                    }, 20);
-
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-
-    /* =================================================
-       RUEDA DEL MOUSE
-       PERMITE SEGUIR BAJANDO
-    ================================================= */
-
-    window.addEventListener(
-        "wheel",
-        event => {
-
-            if (
-                !modal.classList.contains("active")
-            ) return;
-
-
-            /*
-               Cerramos el video inmediatamente
-               al intentar desplazarse.
-            */
-
-            closeModal();
-
-        },
-        {
-            passive: true,
-            capture: true
-        }
-    );
-
-
-
-    /* =================================================
-       TOUCH / MÓVIL
-    ================================================= */
-
-    let touchStartY = 0;
-
-
-    window.addEventListener(
-        "touchstart",
-        event => {
-
-            if (
-                !modal.classList.contains("active")
-            ) return;
-
-
-            touchStartY =
-                event.touches[0].clientY;
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    window.addEventListener(
-        "touchmove",
-        event => {
-
-            if (
-                !modal.classList.contains("active")
-            ) return;
-
-
-            const currentY =
-                event.touches[0].clientY;
-
-
-            const difference =
-                Math.abs(
-                    currentY - touchStartY
-                );
-
-
-            if (difference > 10) {
-
-                closeModal();
-
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-
-    /* =================================================
-       CUANDO TERMINA EL VIDEO
-    ================================================= */
-
-    modalVideo.addEventListener(
-        "ended",
-        () => {
-
-            /*
-               El modal permanece abierto,
-               pero el video queda detenido.
-            */
-
-            modalVideo.pause();
-
-        }
-    );
-
-}
-
-    /* =====================================================
-       CUSTOM CURSOR
-    ===================================================== */
+    /* =========================================================
+       CURSOR PERSONALIZADO
+       ========================================================= */
 
     const cursor =
-        document.querySelector(
-            ".cursor"
-        );
-
+        document.querySelector(".cursor");
 
     const follower =
-        document.querySelector(
-            ".cursor-follower"
-        );
+        document.querySelector(".cursor-follower");
 
 
     if (
         cursor &&
         follower &&
-        window.matchMedia(
-            "(pointer: fine)"
-        ).matches
+        window.matchMedia("(pointer: fine)").matches
     ) {
 
         let mouseX = 0;
-
         let mouseY = 0;
 
         let followerX = 0;
-
         let followerY = 0;
 
 
@@ -884,11 +457,9 @@ if (modal && modalVideo) {
             "mousemove",
             event => {
 
-                mouseX =
-                    event.clientX;
+                mouseX = event.clientX;
 
-                mouseY =
-                    event.clientY;
+                mouseY = event.clientY;
 
 
                 cursor.style.left =
@@ -904,18 +475,14 @@ if (modal && modalVideo) {
         const animateFollower = () => {
 
             followerX +=
-                (mouseX - followerX) *
-                0.12;
-
+                (mouseX - followerX) * 0.12;
 
             followerY +=
-                (mouseY - followerY) *
-                0.12;
+                (mouseY - followerY) * 0.12;
 
 
             follower.style.left =
                 `${followerX}px`;
-
 
             follower.style.top =
                 `${followerY}px`;
@@ -930,9 +497,6 @@ if (modal && modalVideo) {
 
         animateFollower();
 
-
-
-        /* Cursor hover */
 
         document
             .querySelectorAll(
@@ -973,30 +537,26 @@ if (modal && modalVideo) {
 
 
 
-    /* =====================================================
+    /* =========================================================
        HERO PARALLAX
-    ===================================================== */
+       ========================================================= */
 
     const heroVisual =
-        document.querySelector(
-            ".hero-visual"
-        );
+        document.querySelector(".hero-visual");
 
 
     if (
         heroVisual &&
-        window.matchMedia(
-            "(pointer: fine)"
-        ).matches
+        window.matchMedia("(pointer: fine)").matches
     ) {
 
         document.addEventListener(
             "mousemove",
             event => {
 
-                if (
-                    window.innerWidth <= 900
-                ) return;
+                if (window.innerWidth <= 900) {
+                    return;
+                }
 
 
                 const x =
@@ -1025,19 +585,19 @@ if (modal && modalVideo) {
 
 
 
-    /* =====================================================
+    /* =========================================================
        NAVBAR
-    ===================================================== */
+       ========================================================= */
 
     const navbar =
-        document.querySelector(
-            ".navbar"
-        );
+        document.querySelector(".navbar");
 
 
     const updateNavbar = () => {
 
-        if (!navbar) return;
+        if (!navbar) {
+            return;
+        }
 
 
         const scrolled =
@@ -1089,14 +649,12 @@ if (modal && modalVideo) {
 
 
 
-    /* =====================================================
-       SMOOTH ANCHORS
-    ===================================================== */
+    /* =========================================================
+       SCROLL SUAVE
+       ========================================================= */
 
     document
-        .querySelectorAll(
-            'a[href^="#"]'
-        )
+        .querySelectorAll('a[href^="#"]')
         .forEach(anchor => {
 
             anchor.addEventListener(
@@ -1104,15 +662,15 @@ if (modal && modalVideo) {
                 event => {
 
                     const href =
-                        anchor.getAttribute(
-                            "href"
-                        );
+                        anchor.getAttribute("href");
 
 
                     if (
                         !href ||
                         href === "#"
-                    ) return;
+                    ) {
+                        return;
+                    }
 
 
                     const target =
@@ -1121,7 +679,9 @@ if (modal && modalVideo) {
                         );
 
 
-                    if (!target) return;
+                    if (!target) {
+                        return;
+                    }
 
 
                     event.preventDefault();
@@ -1139,9 +699,9 @@ if (modal && modalVideo) {
 
 
 
-    /* =====================================================
+    /* =========================================================
        REDUCED MOTION
-    ===================================================== */
+       ========================================================= */
 
     if (
         window.matchMedia(
@@ -1156,50 +716,12 @@ if (modal && modalVideo) {
 
 
 
-    /* =====================================================
-       CONTACTO — WHATSAPP / CORREO
-    ===================================================== */
-    const contactTrigger = document.getElementById("contactTrigger");
-    const contactMenu = document.getElementById("contactMenu");
-
-    if (contactTrigger && contactMenu) {
-        const closeContactMenu = () => {
-            contactMenu.classList.remove("active");
-            contactMenu.setAttribute("aria-hidden", "true");
-            contactTrigger.setAttribute("aria-expanded", "false");
-        };
-
-        contactTrigger.addEventListener("click", event => {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const isOpen = contactMenu.classList.toggle("active");
-            contactMenu.setAttribute("aria-hidden", String(!isOpen));
-            contactTrigger.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        contactMenu.addEventListener("click", event => {
-            event.stopPropagation();
-        });
-
-        document.addEventListener("click", event => {
-            if (!contactMenu.contains(event.target) && !contactTrigger.contains(event.target)) {
-                closeContactMenu();
-            }
-        });
-
-        document.addEventListener("keydown", event => {
-            if (event.key === "Escape") closeContactMenu();
-        });
-    }
-
-    /* =====================================================
+    /* =========================================================
        PAGE LOADED
-    ===================================================== */
+       ========================================================= */
 
     document.body.classList.add(
         "page-loaded"
     );
 
 });
-

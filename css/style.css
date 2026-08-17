@@ -1494,7 +1494,6 @@ footer {
 /* ==================================
    FOTO HERO
 ================================== */
-
 .hero {
     display: flex;
     align-items: center;
@@ -1502,12 +1501,10 @@ footer {
     gap: 80px;
     min-height: 100vh;
 }
-
 .hero-content {
     flex: 1;
     max-width: 700px;
 }
-
 .hero-photo-container {
     position: relative;
     width: 500px;
@@ -1515,72 +1512,102 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    isolation: isolate; /* NUEVO */
 }
 
+/* ---- ESTO REEMPLAZA a tu .hero-photo original ---- */
 .hero-photo {
     position: relative;
     width: 100%;
     max-width: 450px;
-    z-index: 2;
-    animation: floatPhoto 6s ease-in-out infinite;
-    filter: drop-shadow(0 0 40px rgba(181,255,54,.25));
+    z-index: 3;
+    animation: floatPhoto 6s ease-in-out infinite,
+               glowPulse 4s ease-in-out infinite;
 }
 
+@keyframes glowPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 25px rgba(181,255,54,.35))
+                drop-shadow(0 0 55px rgba(181,255,54,.25));
+    }
+    50% {
+        filter: drop-shadow(0 0 40px rgba(181,255,54,.55))
+                drop-shadow(0 0 80px rgba(181,255,54,.35));
+    }
+}
+
+/* ---- ESTO REEMPLAZA a tu .green-smoke original (y su @keyframes smokeMove) ---- */
 .green-smoke {
     position: absolute;
-    width: 500px;
-    height: 500px;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.green-smoke::before,
+.green-smoke::after {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(181,255,54,.45) 0%,
-        rgba(181,255,54,.15) 40%,
+        rgba(181,255,54,.55) 0%,
+        rgba(181,255,54,.2) 45%,
         transparent 75%
     );
-    filter: blur(90px);
-    animation: smokeMove 8s ease-in-out infinite;
+    filter: blur(80px);
+    mix-blend-mode: screen;
 }
 
-@keyframes smokeMove {
-    0% {
-        transform: translate(-20px,-10px) scale(1);
-    }
-
-    50% {
-        transform: translate(30px,20px) scale(1.15);
-    }
-
-    100% {
-        transform: translate(-20px,-10px) scale(1);
-    }
+.green-smoke::before {
+    top: 10%;
+    left: 5%;
+    animation: smokeMoveA 9s ease-in-out infinite;
 }
 
+.green-smoke::after {
+    bottom: 5%;
+    right: 5%;
+    width: 350px;
+    height: 350px;
+    animation: smokeMoveB 11s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+@keyframes smokeMoveA {
+    0%, 100% { transform: translate(-20px,-10px) scale(1); }
+    50%      { transform: translate(30px,25px) scale(1.2); }
+}
+
+@keyframes smokeMoveB {
+    0%, 100% { transform: translate(15px,10px) scale(1); }
+    50%      { transform: translate(-25px,-20px) scale(1.15); }
+}
+
+/* ---- ESTO SE QUEDA IGUAL ---- */
 @keyframes floatPhoto {
     0% {
         transform: translateY(0px);
     }
-
     50% {
         transform: translateY(-15px);
     }
-
     100% {
         transform: translateY(0px);
     }
 }
-
 @media(max-width: 900px){
-
     .hero{
         flex-direction: column;
         text-align:center;
         gap:40px;
     }
-
     .hero-photo-container{
         width:100%;
         height:auto;
     }
-
     .hero-photo{
         max-width:320px;
     }
